@@ -109,7 +109,7 @@ export const Drawer: React.FC<Props> = props => {
   const swapItems = (moduleKey: string, oldIdx: number, newIdx: number) => {
     const newValues = _.clone(_.get(props.value, moduleKey, []));
     props.onValueChange({
-      [moduleKey]: arrayMove(newValues, newIdx, oldIdx),
+      [moduleKey]: arrayMove(newValues, oldIdx, newIdx),
     });
   };
 
@@ -267,12 +267,13 @@ export const Drawer: React.FC<Props> = props => {
           onChange={v => {
             const drawerKey = childrenDrawer;
             const drawerIsList = _.endsWith(drawerKey, 'List');
+            const currentVal = currentContent;
             if (drawerIsList) {
-              const newValue = _.get(props.value, drawerKey, []);
-              if (currentContent) {
-                newValue[currentContent.dataIndex] = _.merge(
+              const newValue = _.clone(_.get(props.value, drawerKey, []));
+              if (currentVal) {
+                newValue[currentVal.dataIndex] = _.merge(
                   {},
-                  currentContent,
+                  currentVal,
                   v
                 );
               } else {
