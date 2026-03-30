@@ -25,7 +25,13 @@
       "Bash(lsof -ti:8000 | xargs kill -9 2>/dev/null; sleep 1; rm -rf .cache public && npx gatsby develop)",
       "Bash(git init:*)",
       "Bash(git branch:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git remote:*)",
+      "Bash(ssh -T git@github.com 2>&1)",
+      "Read(//Users/yangxinglong/.ssh/**)",
+      "Bash(ssh-add ~/.ssh/id_ed25519)"
     ]
   }
 }
