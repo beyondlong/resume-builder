@@ -1,0 +1,236 @@
+// 模板4 - 现代简洁风格
+// 单栏布局，大量留白，细线条分隔
+
+.template4-resume {
+  width: 794px;
+  min-height: 942px;
+  margin-bottom: 60px;
+  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  @media (max-width: 794px) {
+    width: 100%;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+  }
+
+  .template4-resume {
+    width: 100%;
+    box-shadow: none;
+  }
+}
+
+// 头部区域
+.template4-resume .resume-header {
+  padding: 40px 48px 24px;
+  border-bottom: 2px solid;
+  text-align: center;
+
+  .name {
+    font-size: 36px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    letter-spacing: 2px;
+  }
+
+  .contact-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
+      color: #666;
+
+      .anticon {
+        margin-right: 6px;
+        font-size: 14px;
+      }
+
+      &.link {
+        cursor: pointer;
+        color: #666;
+
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+  }
+}
+
+// 主体内容
+.template4-resume .resume-body {
+  padding: 32px 48px;
+}
+
+// 区块通用样式
+.template4-resume .section {
+  margin-bottom: 28px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.template4-resume .section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  letter-spacing: 1px;
+}
+
+.template4-resume .section-content {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #333;
+}
+
+// 列表项
+.template4-resume .item {
+  margin-bottom: 20px;
+  padding-left: 12px;
+  border-left: 3px solid transparent;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    border-left-color: #ccc;
+  }
+}
+
+.template4-resume .item-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+
+  .company,
+  .project-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+  }
+
+  .department {
+    font-size: 14px;
+    color: #666;
+    margin-left: 8px;
+  }
+
+  .time {
+    font-size: 13px;
+    color: #999;
+    margin-left: auto;
+  }
+
+  .role-tag {
+    margin-left: 12px;
+    font-size: 12px;
+    border: none;
+  }
+}
+
+.template4-resume .item-desc {
+  color: #555;
+  white-space: pre-wrap;
+  margin-bottom: 4px;
+
+  .desc-label {
+    color: #888;
+    margin-right: 4px;
+  }
+}
+
+.template4-resume .item-content {
+  color: #555;
+  white-space: pre-wrap;
+
+  .desc-label {
+    color: #888;
+    margin-right: 4px;
+  }
+}
+
+// 教育背景
+.template4-resume .edu-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  .school {
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .major {
+    font-size: 14px;
+    color: #555;
+  }
+
+  .time {
+    font-size: 13px;
+    color: #999;
+    margin-left: auto;
+  }
+}
+
+// 技能证书
+.template4-resume .skill-item {
+  margin-bottom: 6px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .skill-name {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .skill-desc {
+    color: #555;
+  }
+}
+
+.template4-resume .award-item {
+  margin-bottom: 6px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .award-info {
+    font-weight: 500;
+  }
+
+  .award-time {
+    color: #999;
+    font-size: 13px;
+    margin-left: 8px;
+  }
+}
+
+// 自我介绍
+.template4-resume .about-content {
+  p {
+    margin: 0 0 8px 0;
+    white-space: pre-wrap;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

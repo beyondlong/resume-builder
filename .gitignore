@@ -28,7 +28,8 @@ public
 package-lock.json
 
 # temp
-**temp**
+temp/
+/temp/
 
 # claude
 .claude/

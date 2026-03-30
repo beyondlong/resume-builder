@@ -33,7 +33,9 @@
       "Read(//Users/yangxinglong/.ssh/**)",
       "Bash(ssh-add ~/.ssh/id_ed25519)",
       "Bash(git rm:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git check-ignore:*)"
     ]
   }
 }
