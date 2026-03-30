@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: '/resume-builder',
   siteMetadata: {
     title: 'Resume Generator',
     githubUrl: 'https://github.com/beyondlong/resume.git',
