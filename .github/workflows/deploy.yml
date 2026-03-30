@@ -25,10 +25,8 @@ jobs:
           version: 8
       - run: pnpm install --no-frozen-lockfile
       - run: NODE_OPTIONS=--openssl-legacy-provider pnpm run build
-      - upload-pages-artifacts:
-          name: github-pages
-          path: public
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
