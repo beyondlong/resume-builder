@@ -31,7 +31,8 @@
       "Bash(git remote:*)",
       "Bash(ssh -T git@github.com 2>&1)",
       "Read(//Users/yangxinglong/.ssh/**)",
-      "Bash(ssh-add ~/.ssh/id_ed25519)"
+      "Bash(ssh-add ~/.ssh/id_ed25519)",
+      "Bash(git rm:*)"
     ]
   }
 }

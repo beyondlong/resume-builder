@@ -29,3 +29,9 @@ package-lock.json
 
 # temp
 **temp**
+
+# claude
+.claude/
+
+# pnpm
+pnpm-lock.yaml
