@@ -11,6 +11,7 @@ import { loadFromStorage, saveToStorage } from '@/helpers/storage';
 import type { ResumeConfig } from '@/components/types';
 import EN_US_LOCALE from '@/i18n/locales/en-US.json';
 import ZH_CN_LOCALE from '@/i18n/locales/zh-CN.json';
+import staticResumeData from '../../static/resume.json';
 import './index.less';
 
 registerLocale('en-US', EN_US_LOCALE);
@@ -50,18 +51,7 @@ const EditPage = () => {
     if (cached) {
       setInitialConfig(cached);
     } else {
-      fetch('/resume.json')
-        .then(res => {
-          if (!res.ok) throw new Error('Failed to load');
-          return res.json();
-        })
-        .then(data => {
-          saveToStorage(data);
-          setInitialConfig(data);
-        })
-        .catch(() => {
-          setInitialConfig(RESUME_INFO);
-        });
+      setInitialConfig(staticResumeData as ResumeConfig);
     }
   }, []);
 

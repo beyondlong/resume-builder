@@ -14,6 +14,7 @@ import _ from 'lodash-es';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage, IntlProvider, useIntl } from 'react-intl';
+import staticResumeData from '../../static/resume.json';
 import './preview.less';
 
 registerLocale('en-US', EN_US_LOCALE);
@@ -48,22 +49,12 @@ const PreviewPageContent: React.FC = () => {
         ) as ResumeConfig
       );
     } else {
-      fetch('/resume.json')
-        .then(res => {
-          if (!res.ok) throw new Error('Failed to load');
-          return res.json();
-        })
-        .then(data => {
-          setConfig(
-            _.omit(
-              customAssign({}, data, _.get(data, ['locales', lang]) || {}),
-              ['locales']
-            ) as ResumeConfig
-          );
-        })
-        .catch(() => {
-          setConfig(RESUME_INFO as ResumeConfig);
-        });
+      setConfig(
+        _.omit(
+          customAssign({}, staticResumeData, _.get(staticResumeData, ['locales', lang]) || {}),
+          ['locales']
+        ) as ResumeConfig
+      );
     }
     setLoading(false);
   }, [lang]);
