@@ -23,7 +23,7 @@
 | :---: | :---: |
 | 紧凑简洁，适合一页纸 | 分区块展示，信息清晰 |
 
-**在线体验**: [现代简洁风格](https://beyondlong.github.io/resume)
+**在线体验**: [现代简洁风格](https://beyondlong.github.io/resume-builder/)
 
 ## 技术栈
 
@@ -68,20 +68,13 @@ src/
 
 ## 如何使用
 
-### 方式一：在线编辑
+### 在线编辑
 
 1. 访问在线地址
 2. 点击「进行配置」打开侧边栏
 3. 选择模板、编辑简历信息
 4. 使用浏览器打印功能（Ctrl/Cmd + P）导出 PDF
 
-### 方式二：从 GitHub 加载
-
-将简历配置存储在 GitHub 仓库的 `resume.json` 文件中：
-
-```
-https://beyondlong.github.io/resume?user={github用户名}
-```
 
 ### URL 参数说明
 
