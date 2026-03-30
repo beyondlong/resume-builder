@@ -1,0 +1,167 @@
+{
+  "titleNameMap": {
+    "educationList": "教育背景",
+    "workExpList": "工作经历",
+    "projectList": "项目经验",
+    "skillList": "个人技能",
+    "awardList": "更多信息",
+    "workList": "个人作品",
+    "aboutme": "个人评价"
+  },
+  "avatar": {
+    "src": "",
+    "hidden": true
+  },
+  "profile": {
+    "name": "杨架构",
+    "email": "xinglongking@gmail.com",
+    "mobile": "138xxxx8888",
+    "github": "https://github.com/beyondlong/",
+    "zhihu": "",
+    "workExpYear": "12年+",
+    "workPlace": "北京"
+  },
+  "educationList": [
+    {
+      "edu_time": [
+        "2008.09.01",
+        "2012.06.30"
+      ],
+      "school": "上海交通大学",
+      "major": "信息安全工程",
+      "academic_degree": "本科"
+    },
+    {
+      "edu_time": [
+        "2012.09.01",
+        "2015.06.30"
+      ],
+      "school": "中国科学院",
+      "major": "密码学",
+      "academic_degree": "硕士"
+    }
+  ],
+  "awardList": [
+    {
+      "award_info": "英语 CET6",
+      "award_time": "2010"
+    },
+    {
+      "award_info": "全国大学生信息安全竞赛 一等奖",
+      "award_time": "2011"
+    },
+    {
+      "award_info": "华为年度最佳架构奖",
+      "award_time": "2020.12"
+    },
+    {
+      "award_info": "IEEE Security & Privacy 论文发表",
+      "award_time": "2021.05"
+    },
+    {
+      "award_info": "持有 CISSP、CISP 认证",
+      "award_time": "2019"
+    }
+  ],
+  "workExpList": [
+    {
+      "company_name": "华为技术有限公司",
+      "department_name": "安全工程架构部",
+      "work_time": [
+        "2019.06",
+        null
+      ],
+      "work_desc": "1. 担任云安全首席架构师，主导华为云安全架构设计与落地，覆盖 200+ 微服务的安全防护体系\n2. 负责零信任安全架构（Zero Trust）的设计与实现，服务华为内部 3 万+ 员工\n3. 主导密码服务平台建设，支持国密 SM2/SM3/SM4 算法，服务 20+ 业务线，日均调用量 10 亿+\n4. 带领 15 人安全架构团队，培养 5 名 P9+ 技术专家"
+    },
+    {
+      "company_name": "阿里巴巴集团",
+      "department_name": "安全部",
+      "work_time": [
+        "2015.07",
+        "2019.05"
+      ],
+      "work_desc": "1. 担任安全架构专家，负责支付宝交易安全架构设计与优化，交易资损率从十万分之一降至百万分之一\n2. 主导研发密码中间件，覆盖淘宝、支付宝 100+ 核心系统，性能损耗 < 3%\n3. 设计并落地基于 TEE 的安全计算架构，应用于隐私求交等数据安全场景\n4. 参与 ISO/IEC 27001、PCI-DSS 等安全合规认证建设"
+    },
+    {
+      "company_name": "绿盟科技",
+      "department_name": "研发中心",
+      "work_time": [
+        "2013.03",
+        "2015.06"
+      ],
+      "work_desc": "1. 高级安全研究员，负责 Web 应用防火墙（WAF）的核心检测引擎研发\n2. 设计并实现基于机器学习的异常流量检测模型，误报率降低 60%\n3. 参与国家级网络安全重保项目，支撑 G20 峰会、十九大期间网络安全保障"
+    },
+    {
+      "company_name": "网易",
+      "department_name": "基础架构部",
+      "work_time": [
+        "2012.07",
+        "2013.02"
+      ],
+      "work_desc": "安全开发工程师。负责游戏服务器安全防护模块开发，防护 DDoS 攻击流量峰值达 400Gbps。"
+    }
+  ],
+  "skillList": [
+    {
+      "skill_name": "安全架构",
+      "skill_desc": "零信任架构 / 安全合规 / 云原生安全 / 身份认证与访问控制 / 安全评估"
+    },
+    {
+      "skill_name": "密码学",
+      "skill_desc": "国密算法（SM2/SM3/SM4）/ TLS1.3 / PKI体系 / 同态加密 / 安全多方计算"
+    },
+    {
+      "skill_name": "后端技术",
+      "skill_desc": "Java（15年+）/ Go / Kubernetes / 微服务架构 / 分布式系统 / 高并发"
+    },
+    {
+      "skill_name": "安全产品",
+      "skill_desc": "WAF / 抗 DDoS / 密码服务 / IAM / SIEM / 漏洞扫描"
+    }
+  ],
+  "projectList": [
+    {
+      "project_name": "华为云零信任安全架构",
+      "project_role": "首席架构师",
+      "project_time": "2021.03 - 至今",
+      "project_desc": "华为云零信任安全架构（Huawei Cloud Zero Trust）是一套基于 SDP（Software Defined Perimeter）和 IAM 的企业级安全架构，实现全员全业务的安全接入，获 Gartner 报告推荐。",
+      "project_content": "1. 主导架构设计，采用微服务架构，支持 10 万+ 并发连接\n2. 实现基于属性的访问控制（ABAC），细粒度权限管控到接口级别\n3. 集成密码服务能力，支持国密和国际密码算法双栈\n4. 落地后接入效率提升 50%，安全事件响应时间缩短 80%"
+    },
+    {
+      "project_name": "高性能密码服务平台",
+      "project_role": "技术负责人",
+      "project_time": "2020.01 - 2021.06",
+      "project_desc": "面向华为云业务的高性能密码服务平台，提供统一的密钥管理、证书管理、密码计算等服务，是华为云的基础安全底座。",
+      "project_content": "1. 设计分布式密码集群架构，支持横向扩展，日均请求量 10 亿+\n2. 实现硬件密码机（HSM）集群管理，支持多租户隔离\n3. 性能优化：单节点 TPS 从 5 万提升至 15 万，延迟 < 1ms\n4. 通过国家密码管理局认证，支持 SM2/SM3/SM4 全系列国密算法"
+    },
+    {
+      "project_name": "支付宝交易安全架构升级",
+      "project_role": "安全架构专家",
+      "project_time": "2017.06 - 2019.03",
+      "project_desc": "主导支付宝交易链路安全架构升级，引入基于 TEE 的安全执行环境和端云协同安全方案，大幅提升交易安全等级。",
+      "project_content": "1. 设计并落地基于 TEE 的安全计算框架，保护敏感数据处理\n2. 实现多因素交易风险识别系统，实时决策延迟 < 50ms\n3. 推动密码算法升级至 TLS1.3，优化加密握手延迟 40%\n4. 交易资损率从十万分之一降至百万分之一，年减少资损超亿元"
+    },
+    {
+      "project_name": "游戏安全防护平台",
+      "project_role": "技术负责人",
+      "project_time": "2018.01 - 2019.01",
+      "project_desc": "为网易游戏打造的安全防护平台，集成了 DDoS 防护、入侵检测、反作弊等能力。",
+      "project_content": "1. 设计弹性 DDoS 防护架构，峰值防护能力达 1Tbps\n2. 实现游戏协议逆向分析和行为检测，反作弊准确率 > 95%\n3. 构建安全事件自动化响应系统，威胁响应时间从小时级降至分钟级\n4. 支撑《大话西游》《阴阳师》等头部游戏安全保障"
+    },
+    {
+      "project_name": "WAF 智能检测引擎",
+      "project_role": "核心开发",
+      "project_time": "2014.06 - 2015.05",
+      "project_desc": "绿盟科技 Web 应用防火墙核心检测引擎，集成规则引擎和机器学习模型，用于识别和阻断 Web 攻击。",
+      "project_content": "1. 设计规则引擎框架，支持插件化规则加载，性能损耗 < 5%\n2. 实现基于 SVM 的异常检测模型，SQL注入检出率 > 99%\n3. 构建攻击特征自动学习系统，每周自动更新特征库\n4. 部署于 200+ 客户，误报率较传统方案降低 60%"
+    }
+  ],
+  "workList": [],
+  "aboutme": {
+    "aboutme_desc": "🌱 深耕网络安全与密码学领域 12 年，专注于企业级安全架构设计与落地\n1. 主导设计并落地多个大型安全架构项目，覆盖金融、电商、游戏、云服务等行业\n2. 精通密码学理论，在国密算法、TLS 安全协议、零信任架构等领域有深厚积累\n3. 具备大规模分布式系统架构能力，日均处理请求量 10 亿+ 级别\n4. 持有 CISSP、CISP 等国际认证，在 IEEE S&P 等顶会发表多篇论文\n5. 带领过 15 人以上的安全技术团队，善于培养和激励技术人才"
+  },
+  "theme": {
+    "color": "#2f5785",
+    "tagColor": "#8bc34a"
+  }
+}

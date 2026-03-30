@@ -1,0 +1,117 @@
+.preview-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+
+  .preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--gradient-start, #27BAB5) 0%, var(--gradient-end, #1BA39C) 100%);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(39, 186, 181, 0.35);
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      padding: 6px 16px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.4);
+        transform: translateY(-2px);
+      }
+    }
+
+    .preview-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .ant-select {
+        .ant-select-selector {
+          border-radius: 22px !important;
+          background: rgba(255, 255, 255, 0.15) !important;
+          border: 1px solid rgba(255, 255, 255, 0.25) !important;
+          color: #fff !important;
+          height: 32px !important;
+          padding: 0 16px !important;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.25) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+          }
+
+          .ant-select-selection-item {
+            color: #fff !important;
+            line-height: 30px !important;
+          }
+
+          .ant-select-arrow {
+            color: rgba(255, 255, 255, 0.8) !important;
+          }
+        }
+      }
+
+      .ant-btn-primary {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        font-weight: 500;
+        padding: 0 18px;
+        height: 32px;
+        border-radius: 22px;
+        transition: all 0.3s ease;
+        box-shadow: none;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.35);
+          border-color: rgba(255, 255, 255, 0.5);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+          color: #fff;
+        }
+
+        .anticon {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .preview-content {
+    flex: 1;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+
+    .ant-spin-nested-loading {
+      width: 100%;
+      max-width: 794px;
+    }
+  }
+}
+
+@media print {
+  .preview-header {
+    display: none;
+  }
+
+  .preview-content {
+    padding: 0;
+
+    .ant-spin-nested-loading {
+      max-width: none;
+    }
+  }
+}
