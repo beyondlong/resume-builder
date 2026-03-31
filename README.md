@@ -22,7 +22,7 @@
 
 ### 编辑页
 
-![编辑页预览](docs/images/edit-pages.png)
+![编辑页预览](static/images/edit-pages.png)
 
 - 模块列表 + 表单编辑
 - 列表模块支持新增、编辑、删除、拖拽排序
@@ -32,7 +32,7 @@
 
 | 模板预览 | 模板预览 | 模板预览 |
 | --- | --- | --- |
-| ![模板预览1](docs/images/preview-pages1.png) | ![模板预览2](docs/images/preview-pages2.png) | ![模板预览3](docs/images/preview-pages3.png) |
+| ![模板预览1](static/images/preview-pages1.png) | ![模板预览2](static/images/preview-pages2.png) | ![模板预览3](static/images/preview-pages3.png) |
 
 - 支持 5 套模板切换
 - 支持导出 JSON 配置
