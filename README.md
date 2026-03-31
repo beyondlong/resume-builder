@@ -1,5 +1,7 @@
 # Resume Builder
 
+简体中文 | [English](./README.en.md)
+
 一个在线简历编辑器，支持 5 套模板、JSON 配置驱动、中英文切换和 PDF 导出。
 
 [在线体验](https://beyondlong.github.io/resume-builder/) · [默认模板预览](https://beyondlong.github.io/resume-builder/preview?template=template4)
