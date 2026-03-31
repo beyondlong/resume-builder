@@ -1,6 +1,19 @@
 # Resume Builder
 
-一个基于 Gatsby 的在线简历编辑与预览项目。
+一个在线简历编辑器，支持 5 套模板、JSON 配置驱动、中英文切换和 PDF 导出。
+
+[在线体验](https://beyondlong.github.io/resume-builder/) · [默认模板预览](https://beyondlong.github.io/resume-builder/preview?template=template4)
+
+![编辑页预览](static/images/edit-pages.png)
+
+## Highlights
+
+- 5 套简历模板
+- JSON 配置驱动编辑
+- 中英文切换
+- 浏览器自动保存到 `localStorage`
+- 导出 JSON 配置
+- 浏览器打印 PDF
 
 它的目标很直接：用配置驱动的方式编辑简历内容，再用不同模板快速生成可打印、可导出的简历页面。
 
@@ -21,8 +34,6 @@
 ## 项目预览
 
 ### 编辑页
-
-![编辑页预览](static/images/edit-pages.png)
 
 - 模块列表 + 表单编辑
 - 列表模块支持新增、编辑、删除、拖拽排序
