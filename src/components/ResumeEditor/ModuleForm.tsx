@@ -1,42 +1,37 @@
 import React, { useState, useRef } from 'react';
-import {
-  Button,
-  Modal,
-  Collapse,
-  Empty,
-} from 'antd';
-import {
-  DeleteFilled,
-  PlusOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
+import { Button, Modal, Collapse, Empty } from 'antd';
+import { DeleteFilled, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import arrayMove from 'array-move';
 import _ from 'lodash-es';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { FormCreator } from '../FormCreator';
-import { CONTENT_OF_MODULE } from '@/helpers/contant';
+import { getResumeModuleFields } from '@/config/resume-fields';
 import type { ResumeConfig } from '../types';
+import type { ResumeModuleField, ResumeModuleKey } from '@/config/types';
+import type { CollapseProps } from 'antd';
 
 const { Panel } = Collapse;
 const type = 'DragableBodyRow';
 
 type Props = {
-  moduleKey: string;
+  moduleKey: ResumeModuleKey;
   config: ResumeConfig;
   onChange: (partial: Partial<ResumeConfig>) => void;
 };
 
-const DragableRow: React.FC<{
+const DraggablePanelHeader: React.FC<{
   index: number;
   moveRow: (oldIdx: number, newIdx: number) => void;
-  children: React.ReactNode;
-}> = ({ index, moveRow, ...restProps }) => {
-  const ref = useRef();
+  title: string;
+  onEdit: () => void;
+  onDelete: () => void;
+}> = ({ index, moveRow, title, onEdit, onDelete }) => {
+  const ref = useRef<HTMLDivElement | null>(null);
   const [{ isOver, dropClassName }, drop] = useDrop({
     accept: type,
-    collect: (monitor) => {
+    collect: monitor => {
       const { index: dragIndex } = monitor.getItem() || {};
       if (dragIndex === index) {
         return {};
@@ -55,7 +50,7 @@ const DragableRow: React.FC<{
   const [, drag] = useDrag({
     type,
     item: { index },
-    collect: (monitor) => ({
+    collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
   });
@@ -65,29 +60,46 @@ const DragableRow: React.FC<{
   return (
     <div
       ref={ref}
-      className={`${isOver ? dropClassName : ''}`}
-      style={{ cursor: 'move', marginBottom: 8 }}
-      {...restProps}
-    />
+      className={`list-panel-header${isOver ? dropClassName : ''}`}
+    >
+      <span className="list-panel-title">{title}</span>
+      <span className="list-panel-actions" onClick={e => e.stopPropagation()}>
+        <EditOutlined onClick={onEdit} className="list-panel-action edit" />
+        <DeleteFilled onClick={onDelete} className="list-panel-action delete" />
+      </span>
+    </div>
   );
 };
 
 const ListModuleEditor: React.FC<{
-  moduleKey: string;
-  items: any[];
-  onChange: (newItems: any[]) => void;
+  moduleKey: ResumeModuleKey;
+  items: Array<Record<string, unknown>>;
+  onChange: (newItems: Array<Record<string, unknown>>) => void;
 }> = ({ moduleKey, items = [], onChange }) => {
   const intl = useIntl();
   const [expandedKey, setExpandedKey] = useState<number | null>(null);
   const [editingKey, setEditingKey] = useState<number | null>(null);
-  const [editingItem, setEditingItem] = useState<any>(null);
+  const [editingItem, setEditingItem] = useState<Record<
+    string,
+    unknown
+  > | null>(null);
 
   // Always get fresh contentOfModule to ensure translations are current
-  const contentOfModule = CONTENT_OF_MODULE({ intl });
-  const formConfig = contentOfModule[moduleKey] || [];
+  const contentOfModule = getResumeModuleFields({ intl });
+  const formConfig = (contentOfModule[moduleKey] || []) as ResumeModuleField[];
 
-  const getItemSummary = (item: any, index: number): string => {
-    const summaryFields = ['school', 'company_name', 'project_name', 'skill_name', 'award_info', 'work_name'];
+  const getItemSummary = (
+    item: Record<string, unknown>,
+    index: number
+  ): string => {
+    const summaryFields = [
+      'school',
+      'company_name',
+      'project_name',
+      'skill_name',
+      'award_info',
+      'work_name',
+    ];
     for (const field of summaryFields) {
       if (item[field]) {
         return `${index + 1}. ${item[field]}`;
@@ -116,7 +128,7 @@ const ListModuleEditor: React.FC<{
     });
   };
 
-  const handleFormChange = (values: any) => {
+  const handleFormChange = (values: Record<string, unknown>) => {
     if (editingKey === -1) {
       // 新增
       onChange([...items, values]);
@@ -136,12 +148,13 @@ const ListModuleEditor: React.FC<{
     setExpandedKey(null);
   };
 
-  const handlePanelChange = (keys: string[]) => {
-    if (keys.length === 0) {
+  const handlePanelChange: CollapseProps['onChange'] = key => {
+    if (!key || (Array.isArray(key) && key.length === 0)) {
       setExpandedKey(null);
-    } else {
-      setExpandedKey(Number(keys[0]));
+      return;
     }
+
+    setExpandedKey(Number(Array.isArray(key) ? key[0] : key));
   };
 
   const moveRow = (oldIdx: number, newIdx: number) => {
@@ -151,11 +164,7 @@ const ListModuleEditor: React.FC<{
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="list-module-editor">
-        <Button
-          className="add-btn"
-          onClick={handleAdd}
-          icon={<PlusOutlined />}
-        >
+        <Button className="add-btn" onClick={handleAdd} icon={<PlusOutlined />}>
           <FormattedMessage id="添加" />
         </Button>
 
@@ -168,57 +177,54 @@ const ListModuleEditor: React.FC<{
             <Panel
               key={index}
               header={
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                  <span>{getItemSummary(item, index)}</span>
-                  <span onClick={(e) => e.stopPropagation()}>
-                    <EditOutlined
-                      onClick={() => handleEdit(item, index)}
-                      style={{ marginRight: 8, color: '#667eea' }}
-                    />
-                    <DeleteFilled
-                      onClick={() => handleDelete(index)}
-                      style={{ color: '#ff4d4f' }}
-                    />
-                  </span>
-                </div>
+                <DraggablePanelHeader
+                  index={index}
+                  moveRow={moveRow}
+                  title={getItemSummary(item, index)}
+                  onEdit={() => handleEdit(item, index)}
+                  onDelete={() => handleDelete(index)}
+                />
               }
             >
-              <DragableRow index={index} moveRow={moveRow}>
-                <div>
-                  {editingKey === index ? (
-                    <FormCreator
-                      config={formConfig}
-                      value={editingItem || item}
-                      isList={true}
-                      onChange={handleFormChange}
-                    />
-                  ) : (
-                    <div className="item-preview">
-                      {Object.entries(item)
-                        .filter(([key]) => key !== 'dataIndex')
-                        .map(([key, value]) => {
-                          // Find the translated label from formConfig
-                          const fieldConfig = formConfig.find(f => f.attributeId === key);
-                          const label = fieldConfig?.displayName || key;
-                          return (
-                            <div key={key} style={{ marginBottom: 8 }}>
-                              <strong style={{ color: '#667eea' }}>{label}:</strong> {String(value)}
-                            </div>
-                          );
-                        })}
-                      <Button
-                        type="primary"
-                        size="small"
-                        icon={<EditOutlined />}
-                        onClick={() => handleEdit(item, index)}
-                        style={{ marginTop: 8 }}
-                      >
-                        编辑
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              </DragableRow>
+              <div>
+                {editingKey === index ? (
+                  <FormCreator
+                    config={formConfig}
+                    value={editingItem || item}
+                    isList={true}
+                    onChange={handleFormChange}
+                  />
+                ) : (
+                  <div className="item-preview">
+                    {Object.entries(item)
+                      .filter(([key]) => key !== 'dataIndex')
+                      .map(([key, value]) => {
+                        // Find the translated label from formConfig
+                        const fieldConfig = formConfig.find(
+                          f => f.attributeId === key
+                        );
+                        const label = fieldConfig?.displayName || key;
+                        return (
+                          <div key={key} style={{ marginBottom: 8 }}>
+                            <strong style={{ color: '#667eea' }}>
+                              {label}:
+                            </strong>{' '}
+                            {String(value)}
+                          </div>
+                        );
+                      })}
+                    <Button
+                      type="primary"
+                      size="small"
+                      icon={<EditOutlined />}
+                      onClick={() => handleEdit(item, index)}
+                      style={{ marginTop: 8 }}
+                    >
+                      编辑
+                    </Button>
+                  </div>
+                )}
+              </div>
             </Panel>
           ))}
         </Collapse>
@@ -252,20 +258,24 @@ const ListModuleEditor: React.FC<{
   );
 };
 
-export const ModuleForm: React.FC<Props> = ({ moduleKey, config, onChange }) => {
+export const ModuleForm: React.FC<Props> = ({
+  moduleKey,
+  config,
+  onChange,
+}) => {
   const intl = useIntl();
   // Always get fresh contentOfModule to ensure translations are current
-  const contentOfModule = CONTENT_OF_MODULE({ intl });
+  const contentOfModule = getResumeModuleFields({ intl });
 
   const isListModule = _.endsWith(moduleKey, 'List');
-  const formConfig = contentOfModule[moduleKey] || [];
+  const formConfig = (contentOfModule[moduleKey] || []) as ResumeModuleField[];
   const moduleData = _.get(config, moduleKey);
 
-  const handleNonListChange = (values: any) => {
+  const handleNonListChange = (values: Record<string, unknown>) => {
     onChange({ [moduleKey]: { ...moduleData, ...values } });
   };
 
-  const handleListChange = (newItems: any[]) => {
+  const handleListChange = (newItems: Array<Record<string, unknown>>) => {
     onChange({ [moduleKey]: newItems });
   };
 

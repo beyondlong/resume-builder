@@ -43,7 +43,10 @@ export type ResumeConfig = {
 
   /** 教育背景 */
   educationList?: Array<{
-    edu_time: [string | undefined, string | number];
+    edu_time: [
+      string | number | null | undefined,
+      string | number | null | undefined
+    ];
     school: string;
     major?: string;
     /** 学历 */
@@ -54,7 +57,10 @@ export type ResumeConfig = {
   workExpList?: Array<{
     company_name: string;
     department_name: string;
-    work_time?: [string | undefined, string | number];
+    work_time?: [
+      string | number | null | undefined,
+      string | number | null | undefined
+    ];
     work_desc: string;
   }>;
 

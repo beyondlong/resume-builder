@@ -1,4 +1,3 @@
-import { windowIsDefined } from '@/helpers/detect-device';
 import { getSearchObj } from '@/helpers/location';
 
 /**

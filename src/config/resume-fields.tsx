@@ -1,86 +1,10 @@
-import React from 'react';
-import {
-  ProfileTwoTone,
-  ContactsTwoTone,
-  SmileTwoTone,
-  TrophyTwoTone,
-  TagsTwoTone,
-  RocketTwoTone,
-  ProjectTwoTone,
-  ToolTwoTone,
-  ScheduleTwoTone,
-} from '@ant-design/icons';
-import _ from 'lodash-es';
-import { intl } from '@/i18n';
-import type { ResumeConfig } from '@/components/types';
+import type { ResumeModuleField, ResumeModuleKey } from './types';
 
-/**
- * ① 内置的简历模块
- * ② 后续支持添加自定义模块
- */
-export const MODULES = ({
+export const getResumeModuleFields = ({
   intl,
-  titleNameMap,
 }: {
   intl: any;
-  titleNameMap?: ResumeConfig['titleNameMap'];
-}) => {
-  return [
-    {
-      name: intl.formatMessage({ id: '头像设置' }),
-      icon: <ContactsTwoTone />,
-      key: 'avatar',
-    },
-    {
-      name: intl.formatMessage({ id: '个人信息' }),
-      icon: <ProfileTwoTone />,
-      key: 'profile',
-    },
-    {
-      name: intl.formatMessage({ id: '教育背景' }),
-      icon: <ScheduleTwoTone />,
-      key: 'educationList',
-    },
-    {
-      name: intl.formatMessage({ id: '自我介绍' }),
-      icon: <SmileTwoTone />,
-      key: 'aboutme',
-    },
-    {
-      name: intl.formatMessage({ id: '更多信息' }),
-      icon: <TrophyTwoTone />,
-      key: 'awardList',
-    },
-    {
-      name: intl.formatMessage({ id: '个人作品' }),
-      icon: <ToolTwoTone />,
-      key: 'workList',
-    },
-    {
-      name: intl.formatMessage({ id: '专业技能' }),
-      icon: <RocketTwoTone />,
-      key: 'skillList',
-    },
-    {
-      name: intl.formatMessage({ id: '工作经历' }),
-      icon: <TagsTwoTone />,
-      key: 'workExpList',
-    },
-    {
-      name: intl.formatMessage({ id: '项目经历' }),
-      icon: <ProjectTwoTone />,
-      key: 'projectList',
-    },
-  ].map(d => {
-    const name = _.get(titleNameMap, d.key);
-    return { ...d, name: _.isNil(name) ? d.name : name };
-  });
-};
-
-/**
- * 模块对应配置内容
- */
-export const CONTENT_OF_MODULE = ({ intl }) => {
+}): Partial<Record<ResumeModuleKey, ResumeModuleField[]>> => {
   return {
     avatar: [
       {
@@ -179,7 +103,6 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
         attributeId: 'edu_time',
         displayName: intl.formatMessage({ id: '起始时间' }),
         formItemProps: { rules: [{ required: true }] },
-        // cfg: { picker: 'month' },
       },
       {
         type: 'input',
@@ -204,7 +127,6 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
         attributeId: 'project_time',
         displayName: intl.formatMessage({ id: '起止时间' }),
         formItemProps: { rules: [{ required: true }] },
-        // cfg: { picker: 'month' },
       },
       {
         type: 'input',
@@ -241,7 +163,6 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
         attributeId: 'work_time',
         displayName: intl.formatMessage({ id: '起止时间' }),
         formItemProps: { rules: [{ required: true }] },
-        // cfg: { picker: 'month' },
       },
       {
         type: 'input',
@@ -292,7 +213,7 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
           min: 0,
           max: 100,
           formatter: value => `${value}%`,
-          parser: value => _.replace(value, '%', ''),
+          parser: value => value.replace('%', ''),
         },
       },
       {
@@ -307,7 +228,6 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
         attributeId: 'award_time',
         displayName: intl.formatMessage({ id: '获奖时间' }),
         formItemProps: { rules: [{ required: true }] },
-        // cfg: { picker: 'month' },
       },
       {
         type: 'input',

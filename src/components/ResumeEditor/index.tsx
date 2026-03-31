@@ -3,13 +3,16 @@ import { saveToStorage } from '@/helpers/storage';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { Card, Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
+import type { ResumeModuleKey } from '@/config/types';
 import './index.less';
 import { ModuleForm } from './ModuleForm';
 import { ModuleList } from './ModuleList';
 
 export const ResumeEditor: React.FC = () => {
   const { config, updateConfig } = useResumeConfig();
-  const [selectedModule, setSelectedModule] = useState('profile');
+  const [selectedModule, setSelectedModule] = useState<ResumeModuleKey>(
+    'profile'
+  );
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
 
   // 每次 config 变化时自动保存到 localStorage

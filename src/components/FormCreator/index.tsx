@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, InputNumber, Button, Checkbox, Select } from 'antd';
 import { FormItemProps } from 'antd/lib/form';
 import _ from 'lodash-es';
+import { normalizeResumeDateFields } from '@/helpers/resume-dates';
 import { ColorPicker } from './ColorPicker';
 import { FormattedMessage } from 'react-intl';
 
@@ -58,13 +59,7 @@ export const FormCreator: React.FC<Props> = props => {
   }, [props.value]);
 
   const handleChange = (values: any) => {
-    if ('edu_time' in values && typeof values.edu_time === 'string') {
-      values.edu_time = values.edu_time.split(',');
-    }
-    if ('work_time' in values) {
-      values.work_time = values.work_time.split(',');
-    }
-    props.onChange(values);
+    props.onChange(normalizeResumeDateFields(values));
   };
   const formProps = {
     [props.isList ? 'onFinish' : 'onValuesChange']: handleChange,

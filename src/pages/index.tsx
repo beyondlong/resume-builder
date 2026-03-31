@@ -6,12 +6,11 @@ import Header from '@/layout/header';
 import Footer from '@/layout/footer';
 import { ResumeConfigProvider } from '@/contexts/ResumeConfigContext';
 import { ResumeEditor } from '@/components/ResumeEditor';
-import { RESUME_INFO } from '@/data/resume';
-import { loadFromStorage, saveToStorage } from '@/helpers/storage';
+import { saveToStorage } from '@/helpers/storage';
+import { loadPersistedResumeConfig } from '@/helpers/resume-config';
 import type { ResumeConfig } from '@/components/types';
 import EN_US_LOCALE from '@/i18n/locales/en-US.json';
 import ZH_CN_LOCALE from '@/i18n/locales/zh-CN.json';
-import staticResumeData from '../../static/resume.json';
 import './index.less';
 
 registerLocale('en-US', EN_US_LOCALE);
@@ -47,12 +46,7 @@ const EditPage = () => {
   const [importConfig, setImportConfig] = useState<ResumeConfig | null>(null);
 
   useEffect(() => {
-    const cached = loadFromStorage();
-    if (cached) {
-      setInitialConfig(cached);
-    } else {
-      setInitialConfig(staticResumeData as ResumeConfig);
-    }
+    setInitialConfig(loadPersistedResumeConfig());
   }, []);
 
   const handleImport = useCallback((config: ResumeConfig) => {

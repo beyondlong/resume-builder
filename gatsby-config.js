@@ -27,13 +27,10 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-less',
       options: {
-        strictMath: true,
-        lessOptions: {
-          javascriptEnabled: true,
-          modifyVars: {
-            'font-family': 'roboto-regular, Arial',
-            'primary-color': '#2f5785',
-          },
+        javascriptEnabled: true,
+        modifyVars: {
+          'font-family': 'roboto-regular, Arial',
+          'primary-color': '#2f5785',
         },
       },
     },

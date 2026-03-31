@@ -2,12 +2,13 @@ import React from 'react';
 import { List, Badge } from 'antd';
 import _ from 'lodash-es';
 import { useIntl } from 'react-intl';
-import { MODULES } from '@/helpers/contant';
+import { getResumeModules } from '@/config/resume-modules';
 import type { ResumeConfig } from '@/components/types';
+import type { ResumeModuleKey } from '@/config/types';
 
 type Props = {
-  selectedKey: string;
-  onSelect: (key: string) => void;
+  selectedKey: ResumeModuleKey;
+  onSelect: (key: ResumeModuleKey) => void;
   config: ResumeConfig;
 };
 
@@ -17,9 +18,9 @@ export const ModuleList: React.FC<Props> = ({
   config,
 }) => {
   const intl = useIntl();
-  const modules = MODULES({ intl });
+  const modules = getResumeModules({ intl });
 
-  const getCount = (key: string): number => {
+  const getCount = (key: ResumeModuleKey): number => {
     const value = _.get(config, key);
     if (Array.isArray(value)) {
       return value.length;
@@ -30,11 +31,13 @@ export const ModuleList: React.FC<Props> = ({
   return (
     <List
       dataSource={modules}
-      renderItem={(module) => {
+      renderItem={module => {
         const count = getCount(module.key);
         return (
           <List.Item
-            className={`module-item ${selectedKey === module.key ? 'selected' : ''}`}
+            className={`module-item ${
+              selectedKey === module.key ? 'selected' : ''
+            }`}
             onClick={() => onSelect(module.key)}
           >
             <List.Item.Meta

@@ -73,6 +73,64 @@
 }
 
 .list-module-editor {
+  .ant-collapse {
+    border-radius: 12px;
+    overflow: hidden;
+
+    .ant-collapse-header {
+      display: flex;
+      align-items: center;
+      padding-top: 18px !important;
+      padding-bottom: 18px !important;
+    }
+
+    .ant-collapse-content-box {
+      padding-top: 8px;
+    }
+  }
+
+  .list-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+    padding-right: 8px;
+    cursor: move;
+    user-select: none;
+  }
+
+  .list-panel-title {
+    flex: 1;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: #2f3640;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  .list-panel-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .list-panel-action {
+    font-size: 16px;
+    transition: color 0.2s ease;
+
+    &.edit {
+      color: #667eea;
+    }
+
+    &.delete {
+      color: #ff4d4f;
+    }
+  }
+
   .add-btn {
     width: 100%;
     margin-bottom: 16px;

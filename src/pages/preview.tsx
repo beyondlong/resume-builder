@@ -1,9 +1,8 @@
 import { Resume } from '@/components/Resume';
 import type { ResumeConfig, ThemeConfig } from '@/components/types';
-import { RESUME_INFO } from '@/data/resume';
-import { customAssign } from '@/helpers/customAssign';
 import { exportDataToLocal } from '@/helpers/export-to-local';
 import { loadFromStorage } from '@/helpers/storage';
+import { loadResolvedResumeConfig } from '@/helpers/resume-config';
 import { getLanguage, getLocale, registerLocale } from '@/i18n';
 import EN_US_LOCALE from '@/i18n/locales/en-US.json';
 import ZH_CN_LOCALE from '@/i18n/locales/zh-CN.json';
@@ -14,7 +13,6 @@ import _ from 'lodash-es';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage, IntlProvider, useIntl } from 'react-intl';
-import staticResumeData from '../../static/resume.json';
 import './preview.less';
 
 registerLocale('en-US', EN_US_LOCALE);
@@ -37,32 +35,23 @@ const PreviewPageContent: React.FC = () => {
     return params.get('template') || 'template1';
   };
 
-  const [currentTemplate] = useState(getTemplateFromUrl);
+  const [currentTemplate, setCurrentTemplate] = useState(getTemplateFromUrl);
 
   useEffect(() => {
-    const cached = loadFromStorage();
-    if (cached && typeof cached === 'object') {
-      setConfig(
-        _.omit(
-          customAssign({}, cached, _.get(cached, ['locales', lang]) || {}),
-          ['locales']
-        ) as ResumeConfig
-      );
-    } else {
-      setConfig(
-        _.omit(
-          customAssign({}, staticResumeData, _.get(staticResumeData, ['locales', lang]) || {}),
-          ['locales']
-        ) as ResumeConfig
-      );
-    }
+    setConfig(loadResolvedResumeConfig(lang));
     setLoading(false);
   }, [lang]);
 
   const handleTemplateChange = (value: string) => {
+    setCurrentTemplate(value);
+
     const url = new URL(window.location.href);
     url.searchParams.set('template', value);
-    window.location.href = url.toString();
+    window.history.replaceState(
+      {},
+      '',
+      `${url.pathname}${url.search}${url.hash}`
+    );
   };
 
   const handleExport = () => {
@@ -117,11 +106,7 @@ const PreviewPageContent: React.FC = () => {
       <div className="preview-content">
         <Spin spinning={loading}>
           {config && (
-            <Resume
-              value={config}
-              theme={theme}
-              template={currentTemplate}
-            />
+            <Resume value={config} theme={theme} template={currentTemplate} />
           )}
         </Spin>
       </div>
