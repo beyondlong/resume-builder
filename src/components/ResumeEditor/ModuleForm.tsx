@@ -82,6 +82,7 @@ const ListModuleEditor: React.FC<{
   const [editingKey, setEditingKey] = useState<number | null>(null);
   const [editingItem, setEditingItem] = useState<any>(null);
 
+  // Always get fresh contentOfModule to ensure translations are current
   const contentOfModule = CONTENT_OF_MODULE({ intl });
   const formConfig = contentOfModule[moduleKey] || [];
 
@@ -161,6 +162,7 @@ const ListModuleEditor: React.FC<{
         <Collapse
           activeKey={expandedKey !== null ? [String(expandedKey)] : []}
           onChange={handlePanelChange}
+          accordion={true}
         >
           {items.map((item, index) => (
             <Panel
@@ -192,11 +194,18 @@ const ListModuleEditor: React.FC<{
                     />
                   ) : (
                     <div className="item-preview">
-                      {Object.entries(item).map(([key, value]) => (
-                        <div key={key} style={{ marginBottom: 8 }}>
-                          <strong style={{ color: '#667eea' }}>{key}:</strong> {String(value)}
-                        </div>
-                      ))}
+                      {Object.entries(item)
+                        .filter(([key]) => key !== 'dataIndex')
+                        .map(([key, value]) => {
+                          // Find the translated label from formConfig
+                          const fieldConfig = formConfig.find(f => f.attributeId === key);
+                          const label = fieldConfig?.displayName || key;
+                          return (
+                            <div key={key} style={{ marginBottom: 8 }}>
+                              <strong style={{ color: '#667eea' }}>{label}:</strong> {String(value)}
+                            </div>
+                          );
+                        })}
                       <Button
                         type="primary"
                         size="small"
@@ -245,6 +254,7 @@ const ListModuleEditor: React.FC<{
 
 export const ModuleForm: React.FC<Props> = ({ moduleKey, config, onChange }) => {
   const intl = useIntl();
+  // Always get fresh contentOfModule to ensure translations are current
   const contentOfModule = CONTENT_OF_MODULE({ intl });
 
   const isListModule = _.endsWith(moduleKey, 'List');

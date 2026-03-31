@@ -192,6 +192,11 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
         attributeId: 'major',
         displayName: intl.formatMessage({ id: '专业' }),
       },
+      {
+        type: 'input',
+        attributeId: 'academic_degree',
+        displayName: intl.formatMessage({ id: '学历' }),
+      },
     ],
     projectList: [
       {

@@ -87,6 +87,7 @@ export const Drawer: React.FC<Props> = props => {
   const [visible, setVisible] = useState(false);
   const [childrenDrawer, setChildrenDrawer] = useState(null);
   const [currentContent, updateCurrentContent] = useState(null);
+  const [activePanelKey, setActivePanelKey] = useState<string | null>(null);
 
   /**
    * 1. 更新currentContent State
@@ -170,6 +171,9 @@ export const Drawer: React.FC<Props> = props => {
       >
         <div
           onClick={() => {
+            // 手风琴行为：点击时展开当前 panel，收起其他 panel
+            const panelKey = `${key}-${idx}`;
+            setActivePanelKey(panelKey === activePanelKey ? null : panelKey);
             setChildrenDrawer(key);
             updateCurrentContent({
               ...value,
@@ -192,22 +196,16 @@ export const Drawer: React.FC<Props> = props => {
 
     return (
       <div className="module-item" key={`${idx}`}>
-        <Collapse defaultActiveKey={[]} ghost>
-          <Panel header={header} key={`${idx}`}>
-            <div className="list-value-item">
-              {list}
-              <div
-                className="btn-append"
-                onClick={() => {
-                  setChildrenDrawer(key);
-                  updateCurrentContent(null);
-                }}
-              >
-                <FormattedMessage id="继续添加" />
-              </div>
-            </div>
-          </Panel>
-        </Collapse>
+        {list}
+        <div
+          className="btn-append"
+          onClick={() => {
+            setChildrenDrawer(key);
+            updateCurrentContent(null);
+          }}
+        >
+          <FormattedMessage id="继续添加" />
+        </div>
       </div>
     );
   };
@@ -257,7 +255,10 @@ export const Drawer: React.FC<Props> = props => {
       <AntdDrawer
         title={modules.find(m => m.key === childrenDrawer)?.name}
         width={450}
-        onClose={() => setChildrenDrawer(null)}
+        onClose={() => {
+          setChildrenDrawer(null);
+          setActivePanelKey(null);
+        }}
         visible={!!childrenDrawer}
       >
         <FormCreator
