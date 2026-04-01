@@ -16,10 +16,9 @@ pathsToReset.forEach(targetPath => {
 
 fs.mkdirSync(cacheDir, { recursive: true });
 
-const gatsbyBin = process.platform === 'win32' ? 'gatsby.cmd' : 'gatsby';
-const child = spawn(gatsbyBin, ['develop'], {
+const launcherPath = path.join(__dirname, 'gatsby-cli-safe.js');
+const child = spawn(process.execPath, [launcherPath, 'develop'], {
   stdio: 'inherit',
-  shell: true,
   env: {
     ...process.env,
     NODE_ENV: process.env.NODE_ENV || 'development',
