@@ -284,3 +284,13 @@ npm run extract
 ## License
 
 MIT
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=beyondlong%2Fresume-builder&type=date&legend=bottom-right">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=beyondlong/resume-builder&type=date&theme=dark&legend=bottom-right" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=beyondlong/resume-builder&type=date&legend=bottom-right" />
+   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=beyondlong/resume-builder&type=date&legend=bottom-right" />
+ </picture>
+</a>
