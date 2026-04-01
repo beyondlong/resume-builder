@@ -1,15 +1,25 @@
 import { Resume } from '@/components/Resume';
 import type { ResumeConfig, ThemeConfig } from '@/components/types';
+import { ColorPicker } from '@/components/FormCreator/ColorPicker';
 import { exportDataToLocal } from '@/helpers/export-to-local';
-import { loadFromStorage } from '@/helpers/storage';
+import { loadFromStorage, saveToStorage } from '@/helpers/storage';
 import { loadResolvedResumeConfig } from '@/helpers/resume-config';
+import {
+  buildThemeConfig,
+  DEFAULT_THEME,
+  normalizeThemeConfig,
+  PRESET_THEME_COLORS,
+} from '@/helpers/theme';
 import { getLanguage, getLocale, registerLocale } from '@/i18n';
 import EN_US_LOCALE from '@/i18n/locales/en-US.json';
 import ZH_CN_LOCALE from '@/i18n/locales/zh-CN.json';
-import { DownloadOutlined, PrinterOutlined } from '@ant-design/icons';
-import { Button, Select, Spin, message } from 'antd';
+import {
+  BgColorsOutlined,
+  DownloadOutlined,
+  PrinterOutlined,
+} from '@ant-design/icons';
+import { Button, Popover, Select, Spin, message } from 'antd';
 import { Link } from 'gatsby';
-import _ from 'lodash-es';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage, IntlProvider, useIntl } from 'react-intl';
@@ -24,10 +34,7 @@ const PreviewPageContent: React.FC = () => {
 
   const [config, setConfig] = useState<ResumeConfig>();
   const [loading, setLoading] = useState(true);
-  const [theme] = useState<ThemeConfig>({
-    color: '#2f5785',
-    tagColor: '#8bc34a',
-  });
+  const [themePanelOpen, setThemePanelOpen] = useState(false);
 
   const getTemplateFromUrl = (): string => {
     if (typeof window === 'undefined') return 'template1';
@@ -63,6 +70,84 @@ const PreviewPageContent: React.FC = () => {
     }
   };
 
+  const handleThemeChange = (color: string) => {
+    setConfig(prevConfig => {
+      if (!prevConfig) {
+        return prevConfig;
+      }
+
+      const nextConfig = {
+        ...prevConfig,
+        theme: buildThemeConfig(color),
+      };
+
+      saveToStorage(nextConfig);
+
+      return nextConfig;
+    });
+  };
+
+  const handleThemeReset = () => {
+    handleThemeChange(DEFAULT_THEME.color);
+  };
+
+  const currentTheme: ThemeConfig = normalizeThemeConfig(config?.theme);
+  const isDefaultTheme = currentTheme.color === DEFAULT_THEME.color;
+
+  const themePanelContent = (
+    <div className="theme-settings-panel">
+      <div className="theme-settings-preview">
+        <span className="theme-settings-label">
+          <FormattedMessage id="当前主色" />
+        </span>
+        <div className="theme-settings-preview-value">
+          <span
+            className="theme-settings-preview-chip"
+            style={{ backgroundColor: currentTheme.color }}
+          />
+          <code>{currentTheme.color}</code>
+        </div>
+      </div>
+      <div className="theme-settings-row">
+        <span className="theme-settings-label">
+          <FormattedMessage id="主题色" />
+        </span>
+        <ColorPicker
+          value={currentTheme.color}
+          onChange={handleThemeChange}
+          className="theme-settings-picker"
+          style={{ width: 28, height: 28, borderRadius: 999 }}
+        />
+      </div>
+      <div className="theme-settings-presets">
+        <div className="theme-settings-label">
+          <FormattedMessage id="预设主题" />
+        </div>
+        <div className="theme-settings-swatch-list">
+          {PRESET_THEME_COLORS.map(color => {
+            const isActive = currentTheme.color === color;
+
+            return (
+              <button
+                key={color}
+                type="button"
+                className={`theme-settings-swatch${
+                  isActive ? ' is-active' : ''
+                }`}
+                style={{ backgroundColor: color }}
+                onClick={() => handleThemeChange(color)}
+                aria-label={`theme-${color}`}
+              />
+            );
+          })}
+        </div>
+      </div>
+      <Button size="small" onClick={handleThemeReset} disabled={isDefaultTheme}>
+        <FormattedMessage id="恢复默认" />
+      </Button>
+    </div>
+  );
+
   return (
     <div className="preview-page">
       <div className="preview-header">
@@ -82,6 +167,22 @@ const PreviewPageContent: React.FC = () => {
             <Select.Option value="template3">多页模板</Select.Option>
             <Select.Option value="template5">商务模板</Select.Option>
           </Select>
+          <Popover
+            content={themePanelContent}
+            trigger="click"
+            open={themePanelOpen}
+            onOpenChange={setThemePanelOpen}
+            placement="bottomRight"
+          >
+            <Button
+              type="primary"
+              shape="round"
+              size="small"
+              icon={<BgColorsOutlined />}
+            >
+              <FormattedMessage id="主题设置" />
+            </Button>
+          </Popover>
           <Button
             type="primary"
             shape="round"
@@ -106,7 +207,11 @@ const PreviewPageContent: React.FC = () => {
       <div className="preview-content">
         <Spin spinning={loading}>
           {config && (
-            <Resume value={config} theme={theme} template={currentTemplate} />
+            <Resume
+              value={config}
+              theme={currentTheme}
+              template={currentTemplate}
+            />
           )}
         </Spin>
       </div>

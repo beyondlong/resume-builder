@@ -107,6 +107,9 @@ export type ResumeConfig = {
     aboutme_desc: string;
   };
 
+  /** 预览主题 */
+  theme?: ThemeConfig;
+
   /** 增加国际化 */
   locales?: {
     [key: string]: ResumeConfig;

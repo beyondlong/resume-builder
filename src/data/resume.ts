@@ -2,6 +2,10 @@ import type { ResumeConfig } from '@/components/types';
 
 /** 初始化常量 */
 export const RESUME_INFO: ResumeConfig = {
+  theme: {
+    color: '#2f5785',
+    tagColor: '#2f5785',
+  },
   avatar: {
     src: undefined,
     hidden: false,
