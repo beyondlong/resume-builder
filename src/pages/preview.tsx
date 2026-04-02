@@ -35,6 +35,7 @@ const PreviewPageContent: React.FC = () => {
   const [config, setConfig] = useState<ResumeConfig>();
   const [loading, setLoading] = useState(true);
   const [themePanelOpen, setThemePanelOpen] = useState(false);
+  const [isPrinting, setIsPrinting] = useState(false);
 
   const getTemplateFromUrl = (): string => {
     if (typeof window === 'undefined') return 'template1';
@@ -48,6 +49,29 @@ const PreviewPageContent: React.FC = () => {
     setConfig(loadResolvedResumeConfig(lang));
     setLoading(false);
   }, [lang]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const handleBeforePrint = () => {
+      setThemePanelOpen(false);
+      setIsPrinting(true);
+    };
+
+    const handleAfterPrint = () => {
+      setIsPrinting(false);
+    };
+
+    window.addEventListener('beforeprint', handleBeforePrint);
+    window.addEventListener('afterprint', handleAfterPrint);
+
+    return () => {
+      window.removeEventListener('beforeprint', handleBeforePrint);
+      window.removeEventListener('afterprint', handleAfterPrint);
+    };
+  }, []);
 
   const handleTemplateChange = (value: string) => {
     setCurrentTemplate(value);
@@ -149,7 +173,7 @@ const PreviewPageContent: React.FC = () => {
   );
 
   return (
-    <div className="preview-page">
+    <div className={`preview-page${isPrinting ? ' is-printing' : ''}`}>
       <div className="preview-header">
         <Link to="/" className="back-link">
           ← <FormattedMessage id="返回编辑" />
@@ -205,15 +229,17 @@ const PreviewPageContent: React.FC = () => {
       </div>
 
       <div className="preview-content">
-        <Spin spinning={loading}>
-          {config && (
-            <Resume
-              value={config}
-              theme={currentTheme}
-              template={currentTemplate}
-            />
-          )}
-        </Spin>
+        <div className="print-resume-shell">
+          <Spin spinning={loading}>
+            {config && (
+              <Resume
+                value={config}
+                theme={currentTheme}
+                template={currentTemplate}
+              />
+            )}
+          </Spin>
+        </div>
       </div>
     </div>
   );

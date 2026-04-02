@@ -12,6 +12,8 @@
     "skipLibCheck": true,
     "lib": ["esnext", "dom"],
     "jsx": "react",
+    "baseUrl": ".",
+    "types": ["jest", "node", "@testing-library/jest-dom"],
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -10,6 +10,7 @@ import {
 } from '@ant-design/icons';
 import _ from 'lodash-es';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { Avatar } from '../../Avatar';
 import type { ResumeConfig, ThemeConfig } from '../../types';
 import { getResumeViewModel } from '../shared';
 import { openExternalLink } from '../link-utils';
@@ -52,6 +53,14 @@ export const Template4: React.FC<Props> = props => {
     <div className="template4-resume resume-content">
       {/* 头部区域 */}
       <div className="resume-header" style={{ borderBottomColor: theme.color }}>
+        {!value?.avatar?.hidden && (
+          <Avatar
+            avatarSrc={value?.avatar?.src}
+            className="avatar"
+            shape={value?.avatar?.shape}
+            size={value?.avatar?.size}
+          />
+        )}
         {/* 姓名 */}
         <h1 className="name" style={{ color: theme.color }}>
           {profile?.name}

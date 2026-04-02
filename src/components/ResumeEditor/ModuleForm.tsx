@@ -192,6 +192,8 @@ const ListModuleEditor: React.FC<{
                     config={formConfig}
                     value={editingItem || item}
                     isList={true}
+                    moduleKey={moduleKey}
+                    itemIndex={index}
                     onChange={handleFormChange}
                   />
                 ) : (
@@ -242,6 +244,7 @@ const ListModuleEditor: React.FC<{
               config={formConfig}
               value={editingItem || {}}
               isList={true}
+              moduleKey={moduleKey}
               onChange={handleFormChange}
             />
           </div>
@@ -294,6 +297,7 @@ export const ModuleForm: React.FC<Props> = ({
       config={formConfig}
       value={moduleData || {}}
       isList={false}
+      moduleKey={moduleKey}
       onChange={handleNonListChange}
     />
   );

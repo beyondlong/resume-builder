@@ -102,5 +102,14 @@
   "蓝色": "Blue",
   "浅蓝色": "Light Blue",
   "绿色": "Green",
-  "青色": "Cyan"
+  "青色": "Cyan",
+  "AI优化": "Improve with AI",
+  "AI建议": "AI Suggestions",
+  "应用此版本": "Apply this version",
+  "AI暂无可用建议": "No AI suggestions available",
+  "AI请求失败": "AI request failed. Please try again.",
+  "AI字段内容为空": "There is no content to improve yet.",
+  "AI服务未配置": "AI service is not configured. Please check environment variables.",
+  "AI代理不可用": "AI service is unavailable. Please make sure the proxy server is running.",
+  "AI返回结果解析失败": "The AI response could not be parsed. Please try again."
 }

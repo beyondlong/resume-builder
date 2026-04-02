@@ -31,6 +31,10 @@ package-lock.json
 temp/
 /temp/
 
+# local env
+.env
+.env.local
+
 # claude
 .claude/
 docs/

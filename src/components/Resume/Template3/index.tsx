@@ -56,6 +56,14 @@ export const Template3: React.FC<Props> = props => {
     <div className="template3-resume resume-content">
       <div className="basic-info">
         <div className="profile">
+          {!value?.avatar?.hidden && (
+            <Avatar
+              avatarSrc={value?.avatar?.src}
+              className="avatar"
+              shape={value?.avatar?.shape}
+              size={value?.avatar?.size}
+            />
+          )}
           {profile?.name && <div className="name">{profile.name}</div>}
           <div className="profile-list">
             {profile?.mobile && (

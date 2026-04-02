@@ -2,44 +2,74 @@
 
 [简体中文](./README.md) | English
 
-An online resume editor with 5 templates, JSON-driven configuration, i18n support, and PDF export.
+An online resume editor with 5 templates, config-driven editing, i18n support, AI-assisted resume optimization, JSON export, and browser PDF printing.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Gatsby](https://img.shields.io/badge/Gatsby-2.x-663399.svg)](https://www.gatsbyjs.com/)
+[![React](https://img.shields.io/badge/React-17-61dafb.svg)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.x-3178c6.svg)](https://www.typescriptlang.org/)
 
 [Live Demo](https://beyondlong.github.io/resume-builder/) · [Default Template Preview](https://beyondlong.github.io/resume-builder/preview?template=template4)
 
+Quick links: [Core Features](#core-features) · [Quick Start](#quick-start) · [AI Resume Optimization](#ai-resume-optimization) · [Architecture](#architecture) · [Config-Driven Development](#config-driven-development)
+
 ![Editor Preview](static/images/edit-pages.png)
+
+## Table of Contents
+
+- [Highlights](#highlights)
+- [Live Demo](#live-demo)
+- [Core Features](#core-features)
+- [Project Preview](#project-preview)
+- [Templates](#templates)
+- [Quick Start](#quick-start)
+- [AI Resume Optimization](#ai-resume-optimization)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Config-Driven Development](#config-driven-development)
+- [ResumeConfig Shape](#resumeconfig-shape)
+- [Recent Cleanup](#recent-cleanup)
+- [Known Notes](#known-notes)
 
 ## Highlights
 
 - 5 resume templates
-- JSON-driven editing
-- i18n support
+- Config-driven forms
+- Chinese and English switching
+- AI optimization for summary, project, and work description fields
 - Autosave with `localStorage`
 - Export JSON configuration
 - Print to PDF in the browser
 
-The idea is straightforward: edit resume data through a configuration-driven editor, then render it with different templates for preview, export, and printing.
-
-## Features
-
-- 5 templates covering classic, minimal, and business styles
-- Configuration-driven forms that are easy to extend
-- Chinese and English switching
-- Add, edit, delete, and drag-sort list modules
-- Automatic persistence with `localStorage`
-- JSON export
-- Browser print to PDF
+The idea is simple: maintain a `ResumeConfig` through an extensible editor, then render it with different templates for preview, export, and printing.
 
 ## Live Demo
 
 - Demo: [Resume Builder](https://beyondlong.github.io/resume-builder/)
+- Default preview: [template4](https://beyondlong.github.io/resume-builder/preview?template=template4)
 
-## Preview
+Notes:
+- GitHub Pages only hosts the static frontend
+- The hosted demo does not automatically include a running AI proxy
+- If you want `Improve with AI` in a hosted environment, deploy the AI proxy separately and point `GATSBY_AI_API_BASE_URL` to that service
+
+## Core Features
+
+- 5 templates covering classic, minimal, modern, and business-oriented styles
+- Modular editing for avatar, profile, education, work, projects, skills, awards, portfolio, and summary sections
+- Add, edit, delete, and drag-sort support for list-based modules
+- Theme customization with custom color, preset colors, and reset to default
+- AI-assisted resume editing through a separate proxy layer
+- Template preview, JSON export, and browser PDF printing
+
+## Project Preview
 
 ### Editor
 
-- Module list plus form-based editing
-- List modules support add, edit, delete, and drag sorting
-- All changes are automatically saved to browser storage
+- Left-side module navigation with config-driven forms
+- All edits are persisted automatically to browser storage
+- Supports AI optimization, theme customization, and drag sorting
 
 ### Preview Page
 
@@ -47,7 +77,7 @@ The idea is straightforward: edit resume data through a configuration-driven edi
 | --- | --- | --- |
 | ![Template Preview 1](static/images/preview-pages1.png) | ![Template Preview 2](static/images/preview-pages2.png) | ![Template Preview 3](static/images/preview-pages3.png) |
 
-- Switch between 5 templates
+- Switch across 5 templates
 - Export JSON configuration
 - Print PDF from the browser
 
@@ -55,138 +85,19 @@ The idea is straightforward: edit resume data through a configuration-driven edi
 
 | Template ID | Name | Description |
 | --- | --- | --- |
-| `template1` | Classic | Two-column layout with higher information density |
-| `template2` | Minimal | Lightweight layout for one-page resumes |
-| `template3` | Multi-page | Stronger section separation |
+| `template1` | Classic | Two-column layout with denser information |
+| `template2` | Minimal | Lightweight one-page layout |
+| `template3` | Multi-page | Clearer section separation |
 | `template4` | Modern Minimal | Current default template |
 | `template5` | Business | Sidebar layout with a more formal feel |
 
-## Template Preview Routes
-
-| Template | Style | Preview Route |
-| --- | --- | --- |
-| `template1` | Classic two-column | `/preview?template=template1` |
-| `template2` | Minimal one-page | `/preview?template=template2` |
-| `template3` | Sectioned multi-page | `/preview?template=template3` |
-| `template4` | Modern minimal | `/preview?template=template4` |
-| `template5` | Business sidebar | `/preview?template=template5` |
-
-When running locally, you can open these routes directly in the browser to preview specific templates.
-
-Preview page route example:
+You can preview templates locally via routes such as:
 
 ```text
 /preview?template=template4
 ```
 
-## Tech Stack
-
-- Gatsby 2
-- React 17
-- TypeScript
-- Ant Design 4
-- Less
-- react-intl
-- react-dnd
-
-## Current Architecture
-
-The active editor chain is:
-
-`src/pages/index.tsx -> src/contexts/ResumeConfigContext.tsx -> src/components/ResumeEditor/*`
-
-The preview chain is:
-
-`src/pages/preview.tsx -> src/components/Resume/*`
-
-The project can be understood as a simple three-step flow:
-
-1. The editor page manages a `ResumeConfig`
-2. Changes are saved to browser storage
-3. The preview page reads that config and renders it with a selected template
-
-## Project Structure
-
-```text
-src/
-├── components/
-│   ├── Avatar/                  # Avatar component
-│   ├── FormCreator/             # Config-driven form generator
-│   ├── Resume/                  # Template rendering layer
-│   │   ├── Template1/
-│   │   ├── Template2/
-│   │   ├── Template3/
-│   │   ├── Template4/
-│   │   ├── Template5/
-│   │   ├── shared.ts            # Shared template view model helpers
-│   │   ├── shared-sections.tsx  # Shared template content sections
-│   │   └── shared-layouts.tsx   # Shared template layout fragments
-│   ├── ResumeEditor/            # Main editor UI
-│   └── types.ts                 # ResumeConfig / ThemeConfig
-├── config/
-│   ├── resume-fields.tsx        # Module field definitions
-│   ├── resume-modules.tsx       # Module definitions
-│   └── types.ts                 # Config layer types
-├── contexts/
-│   └── ResumeConfigContext.tsx  # Global resume config state
-├── data/
-│   ├── constant.ts              # Default title mapping
-│   └── resume.ts                # Default resume data
-├── helpers/
-│   ├── resume-config.ts         # Config loading and merge logic
-│   ├── resume-dates.ts          # Date normalization / formatting
-│   └── storage.ts               # localStorage helpers
-├── i18n/
-├── layout/
-└── pages/
-    ├── index.tsx                # Editor page
-    ├── preview.tsx              # Preview page
-    └── 404.tsx                  # 404 page
-```
-
-## Pages
-
-### Editor Page
-
-File:
-[src/pages/index.tsx](/Users/yangxinglong/zayne/resume-builder/src/pages/index.tsx)
-
-Responsibilities:
-
-- Load persisted resume config
-- Initialize i18n
-- Provide `ResumeConfigProvider`
-- Render `ResumeEditor`
-
-### Preview Page
-
-File:
-[src/pages/preview.tsx](/Users/yangxinglong/zayne/resume-builder/src/pages/preview.tsx)
-
-Responsibilities:
-
-- Read saved resume config
-- Switch templates by `template` query param
-- Preview, export JSON, and print PDF
-
-## Data Flow
-
-### Editing Flow
-
-1. [index.tsx](/Users/yangxinglong/zayne/resume-builder/src/pages/index.tsx) loads the initial config
-2. [ResumeConfigContext.tsx](/Users/yangxinglong/zayne/resume-builder/src/contexts/ResumeConfigContext.tsx) manages global state
-3. [ResumeEditor/index.tsx](/Users/yangxinglong/zayne/resume-builder/src/components/ResumeEditor/index.tsx) switches modules
-4. [ModuleForm.tsx](/Users/yangxinglong/zayne/resume-builder/src/components/ResumeEditor/ModuleForm.tsx) edits the current module
-5. [FormCreator/index.tsx](/Users/yangxinglong/zayne/resume-builder/src/components/FormCreator/index.tsx) renders forms from config
-6. Changes are written into `localStorage`
-
-### Preview Flow
-
-1. [preview.tsx](/Users/yangxinglong/zayne/resume-builder/src/pages/preview.tsx) reads the config
-2. [Resume/index.tsx](/Users/yangxinglong/zayne/resume-builder/src/components/Resume/index.tsx) selects the template component
-3. `TemplateX` renders the final resume page
-
-## Local Development
+## Quick Start
 
 ### Recommended Environment
 
@@ -199,17 +110,27 @@ Responsibilities:
 npm install
 ```
 
-### Start Development Server
+### Start Frontend Only
 
 ```bash
 npm start
 ```
 
 Notes:
+- The start script clears `public` and Gatsby development caches first
+- It recreates the project `.cache` directory automatically
+- This helps reduce stale asset issues in the current Gatsby 2 dev workflow
 
-- The start script clears `public` and development caches first
-- It also recreates the project `.cache` directory automatically
-- This is used to keep the current Gatsby 2 dev workflow stable
+### Start Frontend and AI Proxy Together
+
+```bash
+npm run dev
+```
+
+Notes:
+- This starts the frontend and AI proxy in parallel
+- The frontend still clears Gatsby caches before starting
+- Terminal output is prefixed so you can distinguish `start` and `start:ai-proxy`
 
 ### Production Build
 
@@ -217,25 +138,174 @@ Notes:
 npm run build
 ```
 
-### Other Commands
+### Deploy to GitHub Pages
 
 ```bash
-# Clean Gatsby cache
-npm run clean
-
-# Extract i18n messages
-npm run extract
+npm run deploy
 ```
 
-## Config-Driven Editing
+The current Gatsby setup assumes:
 
-The editor is configuration-driven instead of being hardcoded:
+- `https://beyondlong.github.io/resume-builder/`
+- `pathPrefix: /resume-builder`
 
-- [resume-modules.tsx](/Users/yangxinglong/zayne/resume-builder/src/config/resume-modules.tsx) defines modules shown in the left panel
-- [resume-fields.tsx](/Users/yangxinglong/zayne/resume-builder/src/config/resume-fields.tsx) defines fields shown in the editor form
-- [types.ts](/Users/yangxinglong/zayne/resume-builder/src/components/types.ts) defines the actual data model
+If you change the repository name or deployment path, update `pathPrefix` in [gatsby-config.js](/Users/yangxinglong/zayne/resume-builder/gatsby-config.js) as well.
 
-To add a new module, you will typically touch:
+## AI Resume Optimization
+
+AI optimization runs through a separate proxy service so provider tokens are never exposed in the browser.
+
+### Supported Fields
+
+- Summary / self-introduction
+- Project description
+- Project responsibilities / major work
+- Work description
+
+### Proxy Mode
+
+- The frontend sends requests to `/api/ai/improve`
+- The proxy selects a provider and forwards the request
+- Supported providers:
+  - `dashscope`
+  - `openai-compatible`
+
+### Configuration
+
+1. Copy the environment template
+
+```bash
+cp .env.example .env
+```
+
+2. Configure a provider
+
+DashScope example:
+
+```env
+AI_PROVIDER=dashscope
+AI_MODEL=qwen-plus
+DASHSCOPE_API_KEY=your_dashscope_api_key
+DASHSCOPE_BASE_URL=https://dashscope.aliyuncs.com/api/v1
+```
+
+OpenAI-compatible example:
+
+```env
+AI_PROVIDER=openai-compatible
+AI_MODEL=gpt-4o-mini
+OPENAI_COMPATIBLE_API_KEY=your_token
+OPENAI_COMPATIBLE_BASE_URL=https://example.com/v1
+OPENAI_COMPATIBLE_MODEL=gpt-4o-mini
+```
+
+3. Start the AI proxy
+
+```bash
+npm run start:ai-proxy
+```
+
+Default port:
+- `http://localhost:8787`
+
+During local development, the `Improve with AI` button will call the proxy automatically:
+- local development defaults to `http://localhost:8787/api/ai/improve`
+- if `GATSBY_AI_API_BASE_URL` is set, it will be used first
+
+### Common Messages
+
+- `AI service is unavailable. Please make sure the proxy server is running.`
+  The proxy is not running or the frontend cannot reach it.
+- `AI service is not configured. Please check environment variables.`
+  The proxy is running, but the provider or token configuration is missing.
+
+## Tech Stack
+
+- Gatsby 2
+- React 17
+- TypeScript
+- Ant Design 4
+- Less
+- react-intl
+- react-dnd
+- Node.js AI proxy
+
+## Architecture
+
+The active editor chain is:
+
+`src/pages/index.tsx -> src/contexts/ResumeConfigContext.tsx -> src/components/ResumeEditor/*`
+
+The preview chain is:
+
+`src/pages/preview.tsx -> src/components/Resume/*`
+
+The AI chain is:
+
+`FormCreator -> src/services/ai/client.ts -> /api/ai/improve -> provider adapter`
+
+You can think of the project as a four-step flow:
+
+1. The editor page manages a `ResumeConfig`
+2. Changes are written to browser storage
+3. The preview page renders the config with a selected template
+4. The AI proxy enhances editing without exposing provider credentials
+
+## Project Structure
+
+```text
+src/
+├── components/
+│   ├── Avatar/                  # Avatar component
+│   ├── FormCreator/             # Config-driven forms + AI entry points
+│   ├── Resume/                  # Template rendering layer
+│   │   ├── Template1/
+│   │   ├── Template2/
+│   │   ├── Template3/
+│   │   ├── Template4/
+│   │   ├── Template5/
+│   │   ├── shared.ts
+│   │   ├── shared-sections.tsx
+│   │   └── shared-layouts.tsx
+│   ├── ResumeEditor/            # Main editor UI
+│   └── types.ts                 # ResumeConfig / ThemeConfig
+├── config/
+│   ├── resume-fields.tsx
+│   ├── resume-modules.tsx
+│   └── types.ts
+├── contexts/
+│   └── ResumeConfigContext.tsx
+├── data/
+│   ├── constant.ts
+│   └── resume.ts
+├── helpers/
+│   ├── resume-config.ts
+│   ├── resume-dates.ts
+│   ├── resume-ai.ts
+│   └── storage.ts
+├── i18n/
+├── pages/
+│   ├── index.tsx
+│   ├── preview.tsx
+│   └── 404.tsx
+└── services/
+    └── ai/
+
+server/
+├── routes/
+├── providers/
+└── utils/
+```
+
+## Config-Driven Development
+
+The editor is configuration-driven rather than hardcoded:
+
+- [src/config/resume-modules.tsx](/Users/yangxinglong/zayne/resume-builder/src/config/resume-modules.tsx) defines which modules appear in the left panel
+- [src/config/resume-fields.tsx](/Users/yangxinglong/zayne/resume-builder/src/config/resume-fields.tsx) defines which fields appear in the editor form
+- [src/components/types.ts](/Users/yangxinglong/zayne/resume-builder/src/components/types.ts) defines the actual data model
+
+To add a new module, you will usually touch:
 
 1. `src/components/types.ts`
 2. `src/config/resume-modules.tsx`
@@ -257,29 +327,33 @@ The core data model is `ResumeConfig`, mainly including:
 - `workList`
 - `aboutme`
 - `titleNameMap`
+- `theme`
 
 Default data lives in:
 
 - [src/data/resume.ts](/Users/yangxinglong/zayne/resume-builder/src/data/resume.ts)
 - [static/resume.json](/Users/yangxinglong/zayne/resume-builder/static/resume.json)
 
-## Recent Cleanup and Refactoring
+## Recent Cleanup
 
-The repository has already gone through these updates:
+The repository has already gone through these improvements:
 
 - Removed the old editor chain and kept only `index.tsx + ResumeEditor + Context`
 - Split the old `contant.tsx` into `src/config`
-- Extracted shared resume config loading helpers
-- Switched the context layer to reducer-based state updates
+- Extracted shared config-loading helpers
+- Switched the context layer to reducer-based updates
 - Unified date normalization and formatting
-- Extracted shared template view model / sections / layout fragments
-- Fixed Gatsby 2 compatible dependencies, Less config, and dev startup workflow
+- Extracted shared template view model / section / layout helpers
+- Added theme customization
+- Added an AI proxy layer with provider adapters
+- Stabilized Gatsby 2 dependencies, Less config, and dev startup scripts
 
 ## Known Notes
 
 - Gatsby 2 + React 17 + legacy plugins still produce some historical warnings
 - `npm run build` currently passes
 - After dependency or page-structure changes, restarting `npm start` is recommended
+- GitHub Pages can only host the static frontend; the AI proxy must be deployed separately
 
 ## License
 

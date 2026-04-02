@@ -142,12 +142,20 @@ export const getResumeModuleFields = ({
         type: 'textArea',
         attributeId: 'project_desc',
         displayName: intl.formatMessage({ id: '项目描述' }),
+        ai: {
+          enabled: true,
+          promptType: 'project_desc',
+        },
         cfg: { autoSize: { minRows: 8 }, showCount: true },
       },
       {
         type: 'textArea',
         attributeId: 'project_content',
         displayName: intl.formatMessage({ id: '主要工作' }),
+        ai: {
+          enabled: true,
+          promptType: 'project_content',
+        },
         cfg: {
           autoSize: { minRows: 8 },
           showCount: true,
@@ -179,6 +187,10 @@ export const getResumeModuleFields = ({
         type: 'textArea',
         attributeId: 'work_desc',
         displayName: intl.formatMessage({ id: '职位或描述' }),
+        ai: {
+          enabled: true,
+          promptType: 'work_desc',
+        },
       },
     ],
     workList: [
@@ -240,6 +252,11 @@ export const getResumeModuleFields = ({
       {
         type: 'textArea',
         attributeId: 'aboutme_desc',
+        displayName: intl.formatMessage({ id: '自我介绍' }),
+        ai: {
+          enabled: true,
+          promptType: 'aboutme',
+        },
         cfg: { autoSize: { minRows: 4, maxRows: 12 }, showCount: true },
       },
     ],

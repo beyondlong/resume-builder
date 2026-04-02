@@ -10,6 +10,10 @@ export type ResumeModuleField = {
   displayName: string;
   formItemProps?: FormItemProps;
   cfg?: Record<string, any>;
+  ai?: {
+    enabled: boolean;
+    promptType: 'aboutme' | 'project_content' | 'project_desc' | 'work_desc';
+  };
 };
 
 export type ResumeModuleDefinition = {
