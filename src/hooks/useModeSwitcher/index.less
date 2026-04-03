@@ -1,10 +1,24 @@
+// Notion-style Mode Switcher
+@text-primary: #37352f;
+@text-secondary: #9b9a97;
+
 .mode-switcher {
-  margin: 0 7px;
+  margin: 0 8px;
   display: inline-block;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  color: @text-secondary;
 
   span.mode-item {
     cursor: pointer;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: @text-primary;
+    }
+
+    &.active {
+      color: @text-primary;
+      font-weight: 500;
+    }
   }
 }

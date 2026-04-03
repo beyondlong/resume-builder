@@ -3,34 +3,41 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  padding-top: 24px;
+  padding-top: 16px;
 
   > div {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 14px 20px;
-    background: linear-gradient(135deg, var(--gradient-start, #27BAB5) 0%, var(--gradient-end, #1BA39C) 100%);
-    color: rgba(255, 255, 255, 0.9);
+    padding: 12px 20px;
+    background: #ffffff;
+    border-top: 1px solid #e5e5e5;
+    color: #9b9a97;
     font-size: 13px;
   }
 
   a {
-    color: rgba(255, 255, 255, 0.85);
-    transition: color 0.3s ease;
+    color: #9b9a97;
+    transition: color 0.15s ease;
 
     &:hover {
-      color: #fff;
+      color: #37352f;
     }
   }
 
   .author {
     margin: 0 4px;
     cursor: pointer;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.15s ease;
 
     &:hover {
       opacity: 0.8;
     }
+  }
+}
+
+@media print {
+  footer {
+    display: none;
   }
 }

@@ -1,3 +1,12 @@
+// Notion-style FormCreator
+@text-primary: #37352f;
+@text-secondary: #9b9a97;
+@accent-color: #4f46e5;
+@accent-bg: rgba(79, 70, 229, 0.08);
+@border-color: #e5e5e5;
+@bg-page: #f7f6f3;
+@bg-card: #ffffff;
+
 .form-creator {
   .form-item-label-with-ai {
     display: flex;
@@ -10,17 +19,22 @@
   .form-item-label-text {
     min-width: 0;
     font-weight: 500;
+    font-size: 14px;
+    color: @text-primary;
   }
 
   .ai-improve-button {
     flex-shrink: 0;
-    border-radius: 999px;
+    border-radius: 6px;
+    font-size: 12px;
+    height: 28px;
+    padding: 0 10px;
   }
 
   .ai-improve-inline-error {
     margin-top: 8px;
-    color: #cf1322;
-    font-size: 12px;
+    color: #dc2626;
+    font-size: 13px;
     line-height: 1.5;
   }
 }
@@ -33,19 +47,41 @@
 
 .ai-candidate-card {
   padding: 14px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid @border-color;
+  background: @bg-page;
 }
 
 .ai-candidate-content {
   margin-bottom: 12px;
-  color: #1f2937;
+  color: @text-primary;
   white-space: pre-wrap;
   line-height: 1.7;
+  font-size: 14px;
 }
 
 .ai-candidate-error {
   margin-bottom: 12px;
-  color: #cf1322;
+  color: #dc2626;
+  font-size: 13px;
+}
+
+// Ant Design Form overrides
+.ant-form-item {
+  margin-bottom: 16px;
+}
+
+.ant-form-item-required::before {
+  color: @text-secondary;
+}
+
+.ant-input,
+.ant-input-textarea textarea,
+.ant-input-affix-wrapper {
+  font-size: 14px;
+}
+
+.ant-input::placeholder,
+.ant-input-textarea textarea::placeholder {
+  color: @text-secondary;
 }

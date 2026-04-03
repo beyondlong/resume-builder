@@ -1,89 +1,103 @@
+// Notion-style preview page
+@bg-page: #f7f6f3;
+@bg-card: #ffffff;
+@border-color: #e5e5e5;
+@text-primary: #37352f;
+@text-secondary: #9b9a97;
+@accent-color: #4f46e5;
+@accent-bg: rgba(79, 70, 229, 0.08);
+
 .preview-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  background: @bg-page;
 
   .preview-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 24px;
-    background: linear-gradient(135deg, var(--gradient-start, #27BAB5) 0%, var(--gradient-end, #1BA39C) 100%);
-    color: #fff;
-    box-shadow: 0 4px 20px rgba(39, 186, 181, 0.35);
+    padding: 0 24px;
+    height: 56px;
+    background: @bg-card;
+    border-bottom: 1px solid @border-color;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 
     .back-link {
       display: flex;
       align-items: center;
       gap: 6px;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.9);
+      color: @text-primary;
       text-decoration: none;
-      padding: 6px 16px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      transition: all 0.3s ease;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid @border-color;
+      background: @bg-card;
+      transition: all 0.15s ease;
 
       &:hover {
-        background: rgba(255, 255, 255, 0.25);
-        border-color: rgba(255, 255, 255, 0.4);
-        transform: translateY(-2px);
+        background: @bg-page;
+        border-color: #d1d1d1;
       }
     }
 
     .preview-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
 
       .ant-select {
         .ant-select-selector {
-          border-radius: 22px !important;
-          background: rgba(255, 255, 255, 0.15) !important;
-          border: 1px solid rgba(255, 255, 255, 0.25) !important;
-          color: #fff !important;
+          border-radius: 6px !important;
+          background: @bg-card !important;
+          border: 1px solid @border-color !important;
+          color: @text-primary !important;
           height: 32px !important;
-          padding: 0 16px !important;
+          padding: 0 12px !important;
+          font-size: 14px;
 
           &:hover {
-            background: rgba(255, 255, 255, 0.25) !important;
-            border-color: rgba(255, 255, 255, 0.4) !important;
+            background: @bg-page !important;
+            border-color: #d1d1d1 !important;
           }
 
           .ant-select-selection-item {
-            color: #fff !important;
+            color: @text-primary !important;
             line-height: 30px !important;
           }
 
           .ant-select-arrow {
-            color: rgba(255, 255, 255, 0.8) !important;
+            color: @text-secondary !important;
           }
         }
       }
 
       .ant-btn-primary {
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: #fff;
+        background: @bg-card;
+        border: 1px solid @border-color;
+        color: @text-primary;
         font-weight: 500;
-        padding: 0 18px;
+        padding: 0 14px;
         height: 32px;
-        border-radius: 22px;
-        transition: all 0.3s ease;
+        border-radius: 6px;
+        transition: all 0.15s ease;
         box-shadow: none;
+        font-size: 14px;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.35);
-          border-color: rgba(255, 255, 255, 0.5);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-          color: #fff;
+          background: @bg-page;
+          border-color: #d1d1d1;
+          color: @text-primary;
+          transform: none;
+          box-shadow: none;
         }
 
         .anticon {
           font-size: 14px;
+          margin-right: 6px;
         }
       }
     }
@@ -128,13 +142,13 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 4px 2px;
+  padding: 8px 4px;
 
   .theme-settings-preview {
     padding: 12px 14px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.03) 0%, rgba(148, 163, 184, 0.12) 100%);
-    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: 8px;
+    background: @bg-page;
+    border: 1px solid @border-color;
   }
 
   .theme-settings-preview-value {
@@ -145,20 +159,19 @@
 
     code {
       font-size: 12px;
-      color: rgba(15, 23, 42, 0.72);
-      background: rgba(255, 255, 255, 0.8);
+      color: @text-secondary;
+      background: @bg-card;
       padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 4px;
+      border: 1px solid @border-color;
     }
   }
 
   .theme-settings-preview-chip {
     width: 18px;
     height: 18px;
-    border-radius: 999px;
-    border: 2px solid rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+    border-radius: 4px;
+    border: 1px solid @border-color;
     flex-shrink: 0;
   }
 
@@ -171,13 +184,14 @@
 
   .theme-settings-label {
     font-size: 14px;
-    color: rgba(0, 0, 0, 0.72);
+    color: @text-primary;
     font-weight: 500;
   }
 
   .theme-settings-picker {
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+    border: 1px solid @border-color;
+    border-radius: 6px;
+    box-shadow: none;
   }
 
   .theme-settings-presets {
@@ -189,27 +203,26 @@
   .theme-settings-swatch-list {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 10px;
+    gap: 8px;
   }
 
   .theme-settings-swatch {
     position: relative;
     width: 100%;
-    height: 36px;
-    border-radius: 12px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid @border-color;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.14);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     &.is-active {
-      border-color: rgba(15, 23, 42, 0.28);
-      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1);
+      border-color: @accent-color;
+      box-shadow: 0 0 0 2px @accent-bg;
 
       &::after {
         content: '';
@@ -218,17 +231,16 @@
         left: 50%;
         width: 8px;
         height: 8px;
-        border-radius: 999px;
+        border-radius: 2px;
         transform: translate(-50%, -50%);
-        background: rgba(255, 255, 255, 0.92);
-        box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.12);
+        background: #fff;
+        box-shadow: 0 0 0 1px @accent-color;
       }
     }
   }
 
   .ant-btn {
-    align-self: flex-end;
-    border-radius: 999px;
+    border-radius: 6px;
   }
 }
 

@@ -1,22 +1,54 @@
+// Notion-style Language Switcher
+@text-primary: #37352f;
+@text-secondary: #9b9a97;
+
 .language-switcher {
-  margin: 0 7px;
+  margin: 0 8px;
   display: inline-block;
-  font-size: 12px;
+  font-size: 13px;
 
   .divider {
     padding: 0 4px;
+    color: @text-secondary;
+  }
+
+  span {
+    cursor: pointer;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: @text-primary;
+    }
+
+    &[data-lang-active='true'] {
+      color: @text-primary;
+      font-weight: 500;
+    }
+
+    &[data-lang-active='false'] {
+      color: @text-secondary;
+    }
   }
 }
 
 body[lang='en-US'] {
   .language-switcher span[data-lang='zh-CN'] {
-    color: rgba(255, 255, 255, 0.25);
+    color: @text-secondary;
     cursor: pointer;
+
+    &:hover {
+      color: @text-primary;
+    }
   }
 }
+
 body[lang='zh-CN'] {
   .language-switcher span[data-lang='en-US'] {
-    color: rgba(255, 255, 255, 0.25);
+    color: @text-secondary;
     cursor: pointer;
+
+    &:hover {
+      color: @text-primary;
+    }
   }
 }

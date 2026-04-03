@@ -29,8 +29,10 @@ module.exports = {
       options: {
         javascriptEnabled: true,
         modifyVars: {
-          'font-family': 'roboto-regular, Arial',
-          'primary-color': '#2f5785',
+          'font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+          'primary-color': '#4f46e5',
+          'border-radius-base': '8px',
+          'card-radius': '12px',
         },
       },
     },

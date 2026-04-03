@@ -1,55 +1,81 @@
+// Notion-style resume editor
+@bg-page: #f7f6f3;
+@bg-card: #ffffff;
+@border-color: #e5e5e5;
+@text-primary: #37352f;
+@text-secondary: #9b9a97;
+@accent-color: #4f46e5;
+@accent-bg: rgba(79, 70, 229, 0.08);
+
 .resume-editor {
   padding: 24px;
-  min-height: calc(100vh - 46px - 40px);
-  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  min-height: calc(100vh - 56px - 40px);
+  background: @bg-page;
 
   .editor-content {
     .module-list-card {
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(39, 186, 181, 0.1);
-      border: none;
+      background: @bg-card;
+      border: 1px solid @border-color;
+      border-radius: 12px;
       overflow: hidden;
 
       .module-item {
         cursor: pointer;
-        padding: 14px 18px;
-        border-radius: 12px;
+        padding: 12px 16px;
         margin: 4px 8px;
-        transition: all 0.3s ease;
+        border-radius: 8px;
+        border: none;
+        transition: background 0.15s ease;
 
         &:hover {
-          background: linear-gradient(135deg, var(--gradient-start, #27BAB5)20 0%, var(--gradient-end, #1BA39C)20 100%);
-          transform: translateX(4px);
+          background: @bg-page;
         }
 
         &.selected {
-          background: linear-gradient(135deg, var(--gradient-start, #27BAB5) 0%, var(--gradient-end, #1BA39C) 100%);
-          color: #fff;
-          box-shadow: 0 4px 15px rgba(39, 186, 181, 0.4);
+          background: @accent-bg;
+          border-left: 3px solid @accent-color;
+          padding-left: 13px;
 
           .module-icon {
-            color: #fff;
+            color: @accent-color;
           }
         }
 
         .module-icon {
-          font-size: 20px;
-          margin-right: 10px;
-          color: var(--gradient-start, #27BAB5);
+          font-size: 18px;
+          margin-right: 12px;
+          color: @text-secondary;
         }
 
         .module-name {
           display: flex;
           align-items: center;
           font-weight: 500;
+          font-size: 14px;
+          color: @text-primary;
+        }
+      }
+
+      // Override Ant Design List styles
+      .ant-list-item {
+        border-bottom: none;
+        position: relative;
+      }
+
+      .ant-badge {
+        .ant-badge-count {
+          background: @accent-bg;
+          color: @accent-color;
+          box-shadow: none;
+          font-weight: 500;
         }
       }
     }
 
     .module-form-card {
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(39, 186, 181, 0.1);
-      border: none;
+      background: @bg-card;
+      border: 1px solid @border-color;
+      border-radius: 12px;
       padding: 24px;
       min-height: 500px;
       position: relative;
@@ -62,11 +88,11 @@
         align-items: center;
         gap: 6px;
         font-size: 13px;
-        color: #52c41a;
+        color: #16a34a;
         background: #f0fdf4;
         padding: 6px 14px;
-        border-radius: 20px;
-        border: 1px solid #bbf7d0;
+        border-radius: 6px;
+        border: 1px solid #d1fae5;
       }
     }
   }
@@ -74,18 +100,34 @@
 
 .list-module-editor {
   .ant-collapse {
-    border-radius: 12px;
-    overflow: hidden;
+    background: transparent;
+    border: none;
+
+    .ant-collapse-item {
+      border: 1px solid @border-color;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      overflow: hidden;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
 
     .ant-collapse-header {
       display: flex;
       align-items: center;
-      padding-top: 18px !important;
-      padding-bottom: 18px !important;
+      padding: 14px 16px !important;
+      background: @bg-card;
+    }
+
+    .ant-collapse-content {
+      border-top: 1px solid @border-color;
     }
 
     .ant-collapse-content-box {
-      padding-top: 8px;
+      padding: 16px;
+      background: @bg-page;
     }
   }
 
@@ -104,9 +146,9 @@
   .list-panel-title {
     flex: 1;
     min-width: 0;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
-    color: #2f3640;
+    color: @text-primary;
     line-height: 1.5;
     word-break: break-word;
   }
@@ -114,46 +156,55 @@
   .list-panel-actions {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     flex-shrink: 0;
   }
 
   .list-panel-action {
-    font-size: 16px;
-    transition: color 0.2s ease;
+    font-size: 15px;
+    transition: color 0.15s ease;
 
     &.edit {
-      color: #667eea;
+      color: @accent-color;
+
+      &:hover {
+        color: #4338ca;
+      }
     }
 
     &.delete {
-      color: #ff4d4f;
+      color: #dc2626;
+
+      &:hover {
+        color: #b91c1c;
+      }
     }
   }
 
   .add-btn {
     width: 100%;
     margin-bottom: 16px;
-    border-radius: 12px;
-    height: 44px;
-    font-size: 15px;
+    border-radius: 8px;
+    height: 40px;
+    font-size: 14px;
     font-weight: 500;
-    color: var(--gradient-start, #27BAB5);
-    border-color: var(--gradient-start, #27BAB5);
+    color: @accent-color;
+    border-color: @accent-color;
+    background: @bg-card;
 
     &:hover {
-      color: var(--gradient-end, #1BA39C);
-      border-color: var(--gradient-end, #1BA39C);
-      background: rgba(39, 186, 181, 0.05);
+      color: @accent-color;
+      border-color: @accent-color;
+      background: @accent-bg;
     }
   }
 
   .edit-form-container {
-    background: #fff;
-    border-radius: 12px;
+    background: @bg-card;
+    border-radius: 8px;
     padding: 16px;
     margin-bottom: 16px;
-    box-shadow: 0 2px 12px rgba(39, 186, 181, 0.15);
+    border: 1px solid @border-color;
 
     .edit-form-header {
       display: flex;
@@ -161,23 +212,34 @@
       align-items: center;
       margin-bottom: 16px;
       padding-bottom: 12px;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid @border-color;
       font-weight: 500;
-      color: #333;
+      color: @text-primary;
     }
   }
 
   .item-preview {
     padding: 12px;
-    background: #f8fafc;
-    border-radius: 8px;
+    background: @bg-card;
+    border-radius: 6px;
+    border: 1px solid @border-color;
+
+    strong {
+      color: @accent-color;
+      font-weight: 500;
+    }
   }
 
   .drop-over-downward {
-    border-bottom: 2px dashed var(--gradient-start, #27BAB5);
+    border-bottom: 2px dashed @accent-color;
   }
 
   .drop-over-upward {
-    border-top: 2px dashed var(--gradient-start, #27BAB5);
+    border-top: 2px dashed @accent-color;
+  }
+
+  // Override Ant Design Modal
+  .ant-modal-content {
+    border-radius: 12px;
   }
 }

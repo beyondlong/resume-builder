@@ -1,3 +1,6 @@
+// Notion-style global styles
+@bg-page: #f7f6f3;
+
 @media print {
   .resume-content {
     box-shadow: none;
@@ -8,22 +11,82 @@
   }
 }
 
-// 默认的样式
+// Default styles
 #___gatsby,
 #gatsby-focus-wrapper {
   min-height: 100vh;
+  background: @bg-page;
 }
 
-// loading 样式
+// loading style
 #gatsby-focus-wrapper > .ant-spin-nested-loading {
-  height: calc(100vh - 46px /** header */ - 46px /** footer */);
+  height: calc(100vh - 56px /** header */ - 40px /** footer */);
 }
 
-// 全局样式复写
+// Global overrides
 .ant-popover-inner-content {
-  padding: 4px 8px;
-  font-size: 12px;
+  padding: 8px 12px;
+  font-size: 13px;
 }
+
 .ant-row {
   margin-bottom: 12px;
+}
+
+// Ant Design form overrides for Notion style
+.ant-form-item-label > label {
+  font-weight: 500;
+  color: #37352f;
+}
+
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select-selector,
+.ant-picker {
+  border-radius: 6px !important;
+  border-color: #e5e5e5 !important;
+
+  &:hover {
+    border-color: #d1d1d1 !important;
+  }
+
+  &:focus,
+  &.ant-input-affix-wrapper-focused,
+  &.ant-select-focused {
+    border-color: #4f46e5 !important;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1) !important;
+  }
+}
+
+.ant-btn {
+  border-radius: 6px;
+}
+
+.ant-btn-primary {
+  background: #4f46e5;
+  border-color: #4f46e5;
+
+  &:hover {
+    background: #4338ca;
+    border-color: #4338ca;
+  }
+}
+
+// Override Ant Design Card
+.ant-card {
+  border-radius: 12px;
+
+  &.ant-card-bordered {
+    border-color: #e5e5e5;
+  }
+}
+
+// Override Ant Design Badge
+.ant-badge-count {
+  box-shadow: none;
+}
+
+// Override Ant Design Collapse
+.ant-collapse {
+  border-radius: 8px;
 }
