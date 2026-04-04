@@ -19,24 +19,74 @@
 
   .template4-resume {
     width: 100%;
+    min-height: auto;
+    margin-bottom: 0;
     box-shadow: none;
+  }
+
+  .template4-resume .resume-header .resume-header-top {
+    flex-direction: row;
+  }
+
+  .template4-resume .resume-header .contact-panel {
+    min-width: 220px;
+    width: auto;
+  }
+
+  .template4-resume .resume-flow {
+    padding: 18px 34px 24px;
+  }
+
+  .template4-resume .resume-utility-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .template4-resume .section,
+  .template4-resume .item {
+    break-inside: auto;
+    page-break-inside: auto;
   }
 }
 
 .template4-resume .resume-header {
-  padding: 34px 44px 22px;
+  padding: 26px 34px 16px;
   border-bottom: 1px solid;
   background: linear-gradient(180deg, rgba(47, 87, 133, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
 
-  .resume-header-main {
+  .resume-header-top {
     display: flex;
+    justify-content: space-between;
     align-items: flex-start;
     gap: 18px;
-    margin-bottom: 16px;
+
+    @media (max-width: 794px) {
+      flex-direction: column;
+    }
   }
 
-  .avatar {
+  .resume-header-main {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  > .resume-header-top > .resume-header-main > .avatar {
     flex-shrink: 0;
+    width: 84px;
+    min-width: 84px;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .ant-avatar {
+      width: 84px !important;
+      height: 84px !important;
+      line-height: 84px !important;
+      font-size: 38px !important;
+    }
   }
 
   .identity-block {
@@ -46,62 +96,44 @@
 
   .name {
     margin: 0;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
     line-height: 1.08;
     letter-spacing: 0.02em;
   }
 
   .position-title {
-    margin-top: 6px;
-    font-size: 17px;
+    margin-top: 4px;
+    font-size: 15px;
     font-weight: 600;
     color: #2c3850;
   }
 
-  .profile-meta {
+  .contact-panel {
+    min-width: 220px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px 10px;
-    margin-top: 12px;
-  }
-
-  .meta-pill {
-    display: inline-flex;
-    align-items: center;
+    flex-direction: column;
     gap: 6px;
-    padding: 5px 10px;
-    border-radius: 999px;
-    background: #f4f7fb;
-    border: 1px solid #e7edf6;
-    font-size: 11px;
-    color: #4b5870;
 
-    .anticon {
-      font-size: 12px;
+    @media (max-width: 794px) {
+      min-width: 0;
+      width: 100%;
     }
   }
 
-  .contact-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 10px;
-    padding-top: 2px;
-  }
-
   .contact-item {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    padding: 6px 10px;
-    border-radius: 9px;
+    padding: 4px 8px;
+    border-radius: 8px;
     background: #fafbfd;
     border: 1px solid #edf1f7;
-    font-size: 12px;
+    font-size: 11px;
     color: #546173;
 
     .anticon {
       margin-right: 5px;
-      font-size: 13px;
+      font-size: 12px;
     }
 
     &.link {
@@ -119,14 +151,16 @@
 }
 
 .template4-resume .resume-flow {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 24px 44px 32px;
+  display: block;
+  padding: 18px 34px 24px;
 
   @media (max-width: 794px) {
     padding: 24px;
   }
+}
+
+.template4-resume .resume-flow > * + * {
+  margin-top: 14px;
 }
 
 .template4-resume .section {
@@ -136,25 +170,25 @@
 }
 
 .template4-resume .section-title {
-  margin: 0 0 10px;
-  padding-bottom: 8px;
+  margin: 0 0 8px;
+  padding-bottom: 6px;
   border-bottom: 1px solid #e8edf5;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .template4-resume .section-content {
-  font-size: 13px;
-  line-height: 1.64;
+  font-size: 12px;
+  line-height: 1.56;
   color: #394457;
 }
 
 .template4-resume .item {
-  margin-bottom: 16px;
-  padding: 0 0 16px 16px;
-  border-left: 3px solid #e5eaf2;
+  margin-bottom: 12px;
+  padding: 0 0 12px 12px;
+  border-left: 2px solid #e5eaf2;
   break-inside: avoid;
   page-break-inside: avoid;
 
@@ -168,28 +202,28 @@
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: 6px 10px;
-  margin-bottom: 8px;
+  gap: 4px 8px;
+  margin-bottom: 6px;
 
   .company,
   .project-name {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: #1b2432;
   }
 
   .department {
-    font-size: 13px;
+    font-size: 12px;
     color: #5f6d82;
   }
 
   .time {
     margin-left: auto;
-    padding: 3px 8px;
+    padding: 2px 7px;
     border-radius: 999px;
     background: #f5f7fb;
     border: 1px solid #e7edf6;
-    font-size: 11px;
+    font-size: 10px;
     color: #6f7d90;
   }
 
@@ -197,8 +231,8 @@
     margin-left: 0;
     border: none;
     border-radius: 999px;
-    padding-inline: 10px;
-    font-size: 12px;
+    padding-inline: 8px;
+    font-size: 11px;
   }
 }
 
@@ -206,14 +240,14 @@
 .template4-resume .item-content {
   color: #4b5768;
   white-space: pre-wrap;
-  font-size: 13px;
-  line-height: 1.62;
+  font-size: 12px;
+  line-height: 1.56;
 
   .label {
     display: inline;
     margin-right: 6px;
     color: #7b8798;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.03em;
     text-transform: uppercase;
@@ -221,7 +255,7 @@
 }
 
 .template4-resume .item-desc {
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .template4-resume .edu-item {
@@ -231,25 +265,25 @@
   gap: 8px;
 
   .school {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
   }
 
   .major {
-    font-size: 13px;
+    font-size: 12px;
     color: #5b6678;
   }
 
   .time {
     margin-left: auto;
-    font-size: 11px;
+    font-size: 10px;
     color: #6f7d90;
   }
 }
 
 .template4-resume .skill-item {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
   border-bottom: 1px dashed #e2e8f0;
 
   &:last-child {
@@ -260,18 +294,20 @@
 
   .skill-name {
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
     font-weight: 700;
     color: #243044;
   }
 
   .skill-desc {
     color: #536073;
+    font-size: 12px;
+    line-height: 1.5;
   }
 }
 
 .template4-resume .award-item {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 
   &:last-child {
     margin-bottom: 0;
@@ -283,7 +319,7 @@
 
   .award-time {
     margin-left: 8px;
-    font-size: 11px;
+    font-size: 10px;
     color: #6f7d90;
   }
 }
@@ -291,10 +327,10 @@
 .template4-resume .portfolio-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 
   > div {
-    padding-bottom: 12px;
+    padding-bottom: 8px;
     border-bottom: 1px dashed #e1e7f0;
 
     &:last-child {
@@ -317,7 +353,8 @@
 .template4-resume .resume-utility-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 14px;
+  align-items: start;
 
   @media (max-width: 794px) {
     grid-template-columns: 1fr;
@@ -325,29 +362,29 @@
 }
 
 .template4-resume .utility-section {
-  padding: 14px 14px 12px;
+  padding: 10px 10px 8px;
   border: 1px solid #e9eef6;
-  border-radius: 16px;
+  border-radius: 12px;
   background: linear-gradient(180deg, #fbfcfe 0%, #f7f9fc 100%);
 
   .section-title {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-size: 12px;
     letter-spacing: 0.08em;
   }
 
   .section-content {
     font-size: 12px;
-    line-height: 1.58;
+    line-height: 1.5;
   }
 }
 
 .template4-resume .about-content {
   p {
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     color: #455163;
-    font-size: 13px;
-    line-height: 1.7;
+    font-size: 12px;
+    line-height: 1.58;
     white-space: pre-wrap;
 
     &:last-child {

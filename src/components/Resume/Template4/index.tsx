@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-  EnvironmentFilled,
   GithubFilled,
   MailFilled,
   MobileFilled,
-  ScheduleFilled,
   ZhihuCircleFilled,
 } from '@ant-design/icons';
 import _ from 'lodash-es';
@@ -48,70 +46,58 @@ export const Template4: React.FC<Props> = ({ value, theme }) => {
   return (
     <div className="template4-resume resume-content">
       <div className="resume-header" style={{ borderBottomColor: theme.color }}>
-        <div className="resume-header-main">
-          {!value?.avatar?.hidden && (
-            <Avatar
-              avatarSrc={value?.avatar?.src}
-              className="avatar"
-              shape={value?.avatar?.shape}
-              size={value?.avatar?.size}
-            />
-          )}
-          <div className="identity-block">
-            <h1 className="name" style={{ color: theme.color }}>
-              {profile?.name}
-            </h1>
-            {profile?.positionTitle ? (
-              <div className="position-title">{profile.positionTitle}</div>
-            ) : null}
-            <div className="profile-meta">
-              {profile?.workExpYear ? (
-                <span className="meta-pill">
-                  <ScheduleFilled style={themedIconStyle} />
-                  {profile.workExpYear}
-                </span>
-              ) : null}
-              {profile?.workPlace ? (
-                <span className="meta-pill">
-                  <EnvironmentFilled style={themedIconStyle} />
-                  {profile.workPlace}
-                </span>
+        <div className="resume-header-top">
+          <div className="resume-header-main">
+            {!value?.avatar?.hidden && (
+              <Avatar
+                avatarSrc={value?.avatar?.src}
+                className="avatar"
+                shape={value?.avatar?.shape}
+                size={value?.avatar?.size}
+              />
+            )}
+            <div className="identity-block">
+              <h1 className="name" style={{ color: theme.color }}>
+                {profile?.name}
+              </h1>
+              {profile?.positionTitle ? (
+                <div className="position-title">{profile.positionTitle}</div>
               ) : null}
             </div>
           </div>
-        </div>
 
-        <div className="contact-row">
-          {profile?.mobile ? (
-            <span className="contact-item">
-              <MobileFilled style={themedIconStyle} />
-              {profile.mobile}
-            </span>
-          ) : null}
-          {profile?.email ? (
-            <span className="contact-item">
-              <MailFilled style={themedIconStyle} />
-              {profile.email}
-            </span>
-          ) : null}
-          {profile?.github ? (
-            <span
-              className="contact-item link"
-              onClick={() => openExternalLink(profile.github)}
-            >
-              <GithubFilled style={themedIconStyle} />
-              GitHub
-            </span>
-          ) : null}
-          {profile?.zhihu ? (
-            <span
-              className="contact-item link"
-              onClick={() => openExternalLink(profile.zhihu)}
-            >
-              <ZhihuCircleFilled style={themedIconStyle} />
-              知乎
-            </span>
-          ) : null}
+          <div className="contact-panel">
+            {profile?.mobile ? (
+              <span className="contact-item">
+                <MobileFilled style={themedIconStyle} />
+                {profile.mobile}
+              </span>
+            ) : null}
+            {profile?.email ? (
+              <span className="contact-item">
+                <MailFilled style={themedIconStyle} />
+                {profile.email}
+              </span>
+            ) : null}
+            {profile?.github ? (
+              <span
+                className="contact-item link"
+                onClick={() => openExternalLink(profile.github)}
+              >
+                <GithubFilled style={themedIconStyle} />
+                GitHub
+              </span>
+            ) : null}
+            {profile?.zhihu ? (
+              <span
+                className="contact-item link"
+                onClick={() => openExternalLink(profile.zhihu)}
+              >
+                <ZhihuCircleFilled style={themedIconStyle} />
+                知乎
+              </span>
+            ) : null}
+          </div>
         </div>
       </div>
 

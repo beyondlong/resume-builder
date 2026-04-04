@@ -3,6 +3,7 @@ import type { ResumeConfig, ThemeConfig } from '@/components/types';
 import { AIMockInterview } from '@/components/AIMockInterview';
 import { ColorPicker } from '@/components/FormCreator/ColorPicker';
 import { exportDataToLocal } from '@/helpers/export-to-local';
+import { shouldUsePrintPopupFallback } from '@/helpers/browser-compat';
 import { buildLocalizedPath } from '@/helpers/location';
 import { loadFromStorage, saveToStorage } from '@/helpers/storage';
 import { loadResolvedResumeConfig } from '@/helpers/resume-config';
@@ -115,6 +116,94 @@ const PreviewPageContent: React.FC = () => {
 
   const handleThemeReset = () => {
     handleThemeChange(DEFAULT_THEME.color);
+  };
+
+  const handlePrint = () => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    setThemePanelOpen(false);
+
+    if (shouldUsePrintPopupFallback()) {
+      const printShell = document.querySelector('.print-resume-shell');
+      const printWindow = window.open('', '_blank');
+
+      if (printShell && printWindow) {
+        const styles = Array.from(
+          document.querySelectorAll('style, link[rel="stylesheet"]')
+        )
+          .map(node => node.outerHTML)
+          .join('');
+
+        printWindow.document.open();
+        printWindow.document.write(`<!doctype html>
+<html lang="${lang}">
+  <head>
+    <meta charset="utf-8" />
+    <base href="${document.baseURI}" />
+    <title>${document.title}</title>
+    ${styles}
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+      }
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .preview-page {
+        min-height: auto;
+        background: #fff;
+      }
+      .preview-content {
+        padding: 0 !important;
+        display: block !important;
+      }
+      .print-resume-shell {
+        width: 100%;
+        max-width: none !important;
+      }
+      .preview-header {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preview-page is-printing">
+      <div class="preview-content">
+        <div class="print-resume-shell">
+          ${printShell.innerHTML}
+        </div>
+      </div>
+    </div>
+    <script>
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          window.focus();
+          window.print();
+        }, 80);
+      });
+      window.addEventListener('afterprint', function () {
+        window.close();
+      });
+    </script>
+  </body>
+</html>`);
+        printWindow.document.close();
+        return;
+      }
+    }
+
+    setIsPrinting(true);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        window.print();
+      });
+    });
   };
 
   const currentTheme: ThemeConfig = normalizeThemeConfig(config?.theme);
@@ -233,7 +322,7 @@ const PreviewPageContent: React.FC = () => {
             shape="round"
             size="small"
             icon={<PrinterOutlined />}
-            onClick={() => window.print()}
+            onClick={handlePrint}
           >
             <FormattedMessage id="下载 PDF" />
           </Button>

@@ -61,20 +61,6 @@ export const Template5: React.FC<Props> = ({ value, theme }) => {
             {profile?.positionTitle ? (
               <div className="position-title">{profile.positionTitle}</div>
             ) : null}
-            <div className="identity-meta">
-              {profile?.workExpYear ? (
-                <span className="meta-item">
-                  <ScheduleFilled />
-                  {profile.workExpYear}
-                </span>
-              ) : null}
-              {profile?.workPlace ? (
-                <span className="meta-item">
-                  <EnvironmentFilled />
-                  {profile.workPlace}
-                </span>
-              ) : null}
-            </div>
           </div>
         </div>
 

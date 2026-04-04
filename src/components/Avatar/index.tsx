@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, Avatar as AntdAvatar } from 'antd';
+import { resolveStaticAssetUrl } from '@/helpers/browser-compat';
 import './index.less';
 
 export const Avatar = ({
@@ -8,13 +9,15 @@ export const Avatar = ({
   shape = 'circle',
   size = 'default',
 }) => {
+  const resolvedAvatarSrc = resolveStaticAssetUrl(avatarSrc);
+
   return (
-    <div className={`avatar ${!avatarSrc ? 'avatar-hidden' : ''}`}>
-      {avatarSrc ? (
+    <div className={`avatar ${!resolvedAvatarSrc ? 'avatar-hidden' : ''}`}>
+      {resolvedAvatarSrc ? (
         // @ts-ignore
         <AntdAvatar
           className={className}
-          src={avatarSrc}
+          src={resolvedAvatarSrc}
           shape={shape as any}
           size={size as any}
         />
