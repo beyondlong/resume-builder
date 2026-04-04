@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Button, Modal, Collapse, Empty } from 'antd';
 import { DeleteFilled, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
@@ -32,7 +32,8 @@ const DraggablePanelHeader: React.FC<{
   const [{ isOver, dropClassName }, drop] = useDrop({
     accept: type,
     collect: monitor => {
-      const { index: dragIndex } = monitor.getItem() || {};
+      const dragItem = (monitor.getItem() || {}) as { index?: number };
+      const dragIndex = dragItem.index;
       if (dragIndex === index) {
         return {};
       }
@@ -83,6 +84,12 @@ const ListModuleEditor: React.FC<{
     string,
     unknown
   > | null>(null);
+
+  useEffect(() => {
+    setExpandedKey(null);
+    setEditingKey(null);
+    setEditingItem(null);
+  }, [moduleKey]);
 
   // Always get fresh contentOfModule to ensure translations are current
   const contentOfModule = getResumeModuleFields({ intl });
@@ -273,9 +280,16 @@ export const ModuleForm: React.FC<Props> = ({
   const isListModule = _.endsWith(moduleKey, 'List');
   const formConfig = (contentOfModule[moduleKey] || []) as ResumeModuleField[];
   const moduleData = _.get(config, moduleKey);
+  const listModuleData = Array.isArray(moduleData)
+    ? (moduleData as Array<Record<string, unknown>>)
+    : [];
+  const objectModuleData =
+    moduleData && typeof moduleData === 'object' && !Array.isArray(moduleData)
+      ? (moduleData as Record<string, unknown>)
+      : {};
 
   const handleNonListChange = (values: Record<string, unknown>) => {
-    onChange({ [moduleKey]: { ...moduleData, ...values } });
+    onChange({ [moduleKey]: { ...objectModuleData, ...values } });
   };
 
   const handleListChange = (newItems: Array<Record<string, unknown>>) => {
@@ -286,7 +300,7 @@ export const ModuleForm: React.FC<Props> = ({
     return (
       <ListModuleEditor
         moduleKey={moduleKey}
-        items={moduleData || []}
+        items={listModuleData}
         onChange={handleListChange}
       />
     );
@@ -295,7 +309,7 @@ export const ModuleForm: React.FC<Props> = ({
   return (
     <FormCreator
       config={formConfig}
-      value={moduleData || {}}
+      value={objectModuleData}
       isList={false}
       moduleKey={moduleKey}
       onChange={handleNonListChange}
