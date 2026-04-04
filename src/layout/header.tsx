@@ -5,6 +5,7 @@ import { EyeOutlined, UploadOutlined } from '@ant-design/icons';
 import { useIntl } from 'react-intl';
 import { LangSwitcher } from '@/components/LangSwitcher';
 import { saveToStorage } from '@/helpers/storage';
+import { buildLocalizedPath } from '@/helpers/location';
 import type { ResumeConfig } from '@/components/types';
 import './header.less';
 
@@ -48,15 +49,19 @@ const Header: React.FC<Props> = ({ onImport }) => {
 
   return (
     <header>
-      <span className="header-title">简历编辑器</span>
+      <span className="header-title">
+        {intl.formatMessage({ id: '简历编辑器' })}
+      </span>
       <span className="header-actions">
         <Button
           type="primary"
           shape="round"
           icon={<EyeOutlined />}
-          onClick={() => navigate('/preview?template=template4')}
+          onClick={() =>
+            navigate(buildLocalizedPath('/preview', { template: 'template4' }))
+          }
         >
-          预览
+          {intl.formatMessage({ id: '预览' })}
         </Button>
         <Button
           type="primary"

@@ -1,5 +1,36 @@
 const stripTrailingSlash = value => value.replace(/\/+$/, '');
 
+const buildUpstreamError = async response => {
+  let detail = `DashScope request failed with status ${response.status}`;
+
+  try {
+    const payload = await response.json();
+    const message =
+      payload?.message ||
+      payload?.error?.message ||
+      payload?.code ||
+      payload?.request_id;
+
+    if (message) {
+      detail = `DashScope request failed: ${message}`;
+    }
+  } catch (_error) {
+    try {
+      const text = await response.text();
+
+      if (text && text.trim()) {
+        detail = `DashScope request failed: ${text.trim()}`;
+      }
+    } catch (_textError) {
+      // ignore secondary parse failures and keep the fallback detail
+    }
+  }
+
+  const error = new Error(detail);
+  error.code = 'AI_UPSTREAM_REQUEST_FAILED';
+  return error;
+};
+
 const requestDashScopeCompletion = async (
   config,
   prompt,
@@ -36,9 +67,7 @@ const requestDashScopeCompletion = async (
   });
 
   if (!response.ok) {
-    const error = new Error('DashScope request failed');
-    error.code = 'AI_UPSTREAM_REQUEST_FAILED';
-    throw error;
+    throw await buildUpstreamError(response);
   }
 
   const data = await response.json();

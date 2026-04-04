@@ -1,10 +1,12 @@
 import { getSearchObj } from '@/helpers/location';
 import { GithubFilled } from '@ant-design/icons';
 import React from 'react';
+import { useIntl } from 'react-intl';
 import './footer.less';
 
 const Footer: React.FC = () => {
   const user = getSearchObj().user || 'beyondlong';
+  const intl = useIntl();
 
   return (
     <footer>
@@ -32,7 +34,7 @@ const Footer: React.FC = () => {
           target="_blank"
         >
           <GithubFilled style={{ color: '#fff', marginRight: '4px' }} />{' '}
-          项目代码
+          {intl.formatMessage({ id: '项目代码' })}
         </a>
       </div>
     </footer>

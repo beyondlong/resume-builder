@@ -2,6 +2,10 @@ const http = require('http');
 const { URL } = require('url');
 const { loadEnvFiles } = require('./utils/env');
 const { handleAIImproveRequest } = require('./routes/ai');
+const {
+  handleJobRecommendationRequest,
+} = require('./routes/job-recommendation');
+const { handleMockInterviewRequest } = require('./routes/mock-interview');
 
 loadEnvFiles();
 
@@ -64,6 +68,41 @@ const server = http.createServer(async (req, res) => {
     try {
       const body = await parseJsonBody(req);
       const result = await handleAIImproveRequest(body);
+      sendJson(res, result.statusCode, result.payload);
+    } catch (_error) {
+      sendJson(res, 400, {
+        error: {
+          code: 'AI_BAD_REQUEST',
+          message: 'Request body must be valid JSON',
+        },
+      });
+    }
+    return;
+  }
+
+  if (
+    req.method === 'POST' &&
+    requestUrl.pathname === '/api/ai/job-recommendation'
+  ) {
+    try {
+      const body = await parseJsonBody(req);
+      const result = await handleJobRecommendationRequest(body);
+      sendJson(res, result.statusCode, result.payload);
+    } catch (_error) {
+      sendJson(res, 400, {
+        error: {
+          code: 'AI_BAD_REQUEST',
+          message: 'Request body must be valid JSON',
+        },
+      });
+    }
+    return;
+  }
+
+  if (req.method === 'POST' && requestUrl.pathname === '/api/ai/mock-interview') {
+    try {
+      const body = await parseJsonBody(req);
+      const result = await handleMockInterviewRequest(body);
       sendJson(res, result.statusCode, result.payload);
     } catch (_error) {
       sendJson(res, 400, {

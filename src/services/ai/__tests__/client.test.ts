@@ -137,6 +137,9 @@ describe('AI client', () => {
         },
         sourceText: 'old about me',
       })
-    ).rejects.toThrow('AI_PROVIDER_NOT_CONFIGURED');
+    ).rejects.toMatchObject({
+      name: 'AI_PROVIDER_NOT_CONFIGURED',
+      message: 'AI provider is not configured',
+    });
   });
 });

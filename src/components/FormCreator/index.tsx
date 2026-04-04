@@ -163,11 +163,18 @@ export const FormCreator: React.FC<Props> = props => {
       setCandidateModalOpen(true);
     } catch (error) {
       setCandidates([]);
-      const messageId =
-        error instanceof Error
-          ? AI_ERROR_MESSAGE_IDS[error.message] || 'AI请求失败'
-          : 'AI请求失败';
-      setErrorMessage(intl.formatMessage({ id: messageId }));
+      if (error instanceof Error) {
+        const errorCode = error.name !== 'Error' ? error.name : error.message;
+        const messageId = AI_ERROR_MESSAGE_IDS[errorCode];
+
+        setErrorMessage(
+          messageId
+            ? intl.formatMessage({ id: messageId })
+            : error.message || intl.formatMessage({ id: 'AI请求失败' })
+        );
+      } else {
+        setErrorMessage(intl.formatMessage({ id: 'AI请求失败' }));
+      }
       setCandidateModalOpen(true);
     } finally {
       setLoadingFieldId(null);

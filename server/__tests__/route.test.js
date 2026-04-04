@@ -101,6 +101,39 @@ describe('AI improve route', () => {
     expect(result.payload.error.code).toBe('AI_INVALID_RESPONSE');
   });
 
+  it('returns upstream provider error detail for failed requests', async () => {
+    const fetchImpl = jest.fn().mockResolvedValue({
+      ok: false,
+      status: 400,
+      json: async () => ({
+        code: 'InvalidParameter',
+        message: 'response_format is invalid',
+      }),
+    });
+
+    const result = await handleAIImproveRequest(
+      { prompt: 'test prompt' },
+      {
+        env: {
+          AI_PROVIDER: 'dashscope',
+          DASHSCOPE_API_KEY: 'dash-key',
+          AI_MODEL: 'qwen-plus',
+        },
+        fetchImpl,
+      }
+    );
+
+    expect(result).toEqual({
+      statusCode: 502,
+      payload: {
+        error: {
+          code: 'AI_UPSTREAM_REQUEST_FAILED',
+          message: 'DashScope request failed: response_format is invalid',
+        },
+      },
+    });
+  });
+
   it('exposes shared CORS headers for cross-origin local development', () => {
     expect(CORS_HEADERS).toEqual({
       'Access-Control-Allow-Origin': '*',

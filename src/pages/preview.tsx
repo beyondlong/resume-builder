@@ -1,7 +1,9 @@
 import { Resume } from '@/components/Resume';
 import type { ResumeConfig, ThemeConfig } from '@/components/types';
+import { AIMockInterview } from '@/components/AIMockInterview';
 import { ColorPicker } from '@/components/FormCreator/ColorPicker';
 import { exportDataToLocal } from '@/helpers/export-to-local';
+import { buildLocalizedPath } from '@/helpers/location';
 import { loadFromStorage, saveToStorage } from '@/helpers/storage';
 import { loadResolvedResumeConfig } from '@/helpers/resume-config';
 import {
@@ -175,7 +177,7 @@ const PreviewPageContent: React.FC = () => {
   return (
     <div className={`preview-page${isPrinting ? ' is-printing' : ''}`}>
       <div className="preview-header">
-        <Link to="/" className="back-link">
+        <Link to={buildLocalizedPath('/')} className="back-link">
           ← <FormattedMessage id="返回编辑" />
         </Link>
         <div className="preview-actions">
@@ -185,11 +187,21 @@ const PreviewPageContent: React.FC = () => {
             style={{ width: 160 }}
             size="small"
           >
-            <Select.Option value="template4">现代简洁模板</Select.Option>
-            <Select.Option value="template1">经典模板</Select.Option>
-            <Select.Option value="template2">简易模板</Select.Option>
-            <Select.Option value="template3">多页模板</Select.Option>
-            <Select.Option value="template5">商务模板</Select.Option>
+            <Select.Option value="template4">
+              {intl.formatMessage({ id: '现代简洁模板' })}
+            </Select.Option>
+            <Select.Option value="template1">
+              {intl.formatMessage({ id: '经典模板' })}
+            </Select.Option>
+            <Select.Option value="template2">
+              {intl.formatMessage({ id: '简易模板' })}
+            </Select.Option>
+            <Select.Option value="template3">
+              {intl.formatMessage({ id: '多页模板' })}
+            </Select.Option>
+            <Select.Option value="template5">
+              {intl.formatMessage({ id: '商务模板' })}
+            </Select.Option>
           </Select>
           <Popover
             content={themePanelContent}
@@ -225,6 +237,7 @@ const PreviewPageContent: React.FC = () => {
           >
             <FormattedMessage id="下载 PDF" />
           </Button>
+          {config ? <AIMockInterview config={config} /> : null}
         </div>
       </div>
 
@@ -251,7 +264,11 @@ const PreviewPage = () => {
   return (
     <IntlProvider locale={lang} messages={getLocale(lang)}>
       <Helmet>
-        <title>预览简历 - Resume Generator</title>
+        <title>
+          {lang === 'en-US'
+            ? 'Preview Resume - Resume Generator'
+            : '预览简历 - Resume Generator'}
+        </title>
       </Helmet>
       <PreviewPageContent />
     </IntlProvider>

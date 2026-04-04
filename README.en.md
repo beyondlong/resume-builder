@@ -11,7 +11,7 @@ An online resume editor with 5 templates, config-driven editing, i18n support, A
 
 [Live Demo](https://beyondlong.github.io/resume-builder/) · [Default Template Preview](https://beyondlong.github.io/resume-builder/preview?template=template4)
 
-Quick links: [Core Features](#core-features) · [Quick Start](#quick-start) · [AI Resume Optimization](#ai-resume-optimization) · [Architecture](#architecture) · [Config-Driven Development](#config-driven-development)
+Quick links: [Core Features](#core-features) · [Quick Start](#quick-start) · [AI Resume Optimization](#ai-resume-optimization) · [AI Career Tools](#ai-career-tools) · [Architecture](#architecture) · [Config-Driven Development](#config-driven-development)
 
 ![Editor Preview](static/images/edit-pages.png)
 
@@ -24,6 +24,7 @@ Quick links: [Core Features](#core-features) · [Quick Start](#quick-start) · [
 - [Templates](#templates)
 - [Quick Start](#quick-start)
 - [AI Resume Optimization](#ai-resume-optimization)
+- [AI Career Tools](#ai-career-tools)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
 - [Project Structure](#project-structure)
@@ -38,6 +39,7 @@ Quick links: [Core Features](#core-features) · [Quick Start](#quick-start) · [
 - Config-driven forms
 - Chinese and English switching
 - AI optimization for summary, project, and work description fields
+- AI job recommendation and mock interview tools
 - Autosave with `localStorage`
 - Export JSON configuration
 - Print to PDF in the browser
@@ -61,6 +63,7 @@ Notes:
 - Add, edit, delete, and drag-sort support for list-based modules
 - Theme customization with custom color, preset colors, and reset to default
 - AI-assisted resume editing through a separate proxy layer
+- AI career tools for role-fit analysis and resume-based mock interview prompts
 - Template preview, JSON export, and browser PDF printing
 
 ## Project Preview
@@ -218,6 +221,45 @@ During local development, the `Improve with AI` button will call the proxy autom
   The proxy is not running or the frontend cannot reach it.
 - `AI service is not configured. Please check environment variables.`
   The proxy is running, but the provider or token configuration is missing.
+
+## AI Career Tools
+
+In addition to field-level `Improve with AI`, the project now includes two AI tools that analyze the current resume as a whole.
+
+### AI Job Recommendation
+
+- Entry point: tool area in the editor page
+- Uses the current `ResumeConfig` instead of a single field
+- Current output includes:
+  - role direction
+  - fit score
+  - recommended industries
+  - company types
+  - matching tech tags
+  - fit reasons
+  - resume improvement suggestions
+
+This is useful when you want to understand which kinds of roles your current resume fits best before continuing to edit it.
+
+### AI Mock Interview
+
+- Entry point: top action area on the preview page
+- Questions are generated from the current resume content, not from a generic question bank
+- Current output includes:
+  - interview questions
+  - interviewer intent
+  - answer guidance
+  - resume evidence when available
+
+This is useful after the resume is mostly complete and you want to rehearse project, experience, and skill-based interview questions.
+
+### Runtime Notes
+
+Both tools reuse the same AI proxy service as `Improve with AI`:
+
+- use `npm run dev` for local development
+- GitHub Pages hosts only the frontend
+- if you want these features in a hosted demo, deploy the AI proxy separately and point `GATSBY_AI_API_BASE_URL` to it
 
 ## Tech Stack
 

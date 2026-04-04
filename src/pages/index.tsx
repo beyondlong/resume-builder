@@ -64,7 +64,11 @@ const EditPage = () => {
   return (
     <IntlProvider locale={lang} messages={getLocale(lang)}>
       <Helmet>
-        <title>编辑简历 - Resume Generator</title>
+        <title>
+          {lang === 'en-US'
+            ? 'Edit Resume - Resume Generator'
+            : '编辑简历 - Resume Generator'}
+        </title>
       </Helmet>
       <Header onImport={handleImport} />
       <EditPageContent

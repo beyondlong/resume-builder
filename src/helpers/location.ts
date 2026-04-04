@@ -6,3 +6,21 @@ export function getSearchObj() {
 
   return query || {};
 }
+
+export function buildLocalizedPath(
+  pathname: string,
+  extraQuery: Record<string, string | number | boolean | undefined> = {}
+): string {
+  const currentQuery = getSearchObj();
+  const nextQuery = {
+    ...currentQuery,
+    ...extraQuery,
+  };
+
+  const search = qs.stringify(nextQuery, {
+    skipEmptyString: true,
+    skipNull: true,
+  });
+
+  return search ? `${pathname}?${search}` : pathname;
+}

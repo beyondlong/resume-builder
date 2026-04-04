@@ -1,5 +1,6 @@
 import { useResumeConfig } from '@/contexts/ResumeConfigContext';
 import { saveToStorage } from '@/helpers/storage';
+import { AIJobRecommendation } from '@/components/AIJobRecommendation';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { Card, Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -35,6 +36,9 @@ export const ResumeEditor: React.FC = () => {
         </Col>
         <Col span={18}>
           <Card className="module-form-card">
+            <div className="editor-tools">
+              <AIJobRecommendation config={config} />
+            </div>
             <div className="save-indicator">
               <CheckCircleOutlined />
             </div>

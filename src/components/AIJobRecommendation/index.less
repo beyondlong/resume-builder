@@ -1,0 +1,144 @@
+.ai-tool-trigger {
+  border-radius: 999px;
+  height: 32px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+  box-shadow: none;
+
+  &.ai-tool-trigger--editor {
+    border-color: rgba(79, 70, 229, 0.24);
+    background: rgba(79, 70, 229, 0.08);
+    color: #4338ca;
+
+    &:hover,
+    &:focus {
+      border-color: rgba(79, 70, 229, 0.3);
+      background: rgba(79, 70, 229, 0.12);
+      color: #3730a3;
+    }
+  }
+
+  &.ai-tool-trigger--preview {
+    border-color: #d6d3ff;
+    background: #f5f3ff;
+    color: #4338ca;
+
+    &:hover,
+    &:focus {
+      border-color: #c4b5fd;
+      background: #ede9fe;
+      color: #3730a3;
+    }
+  }
+}
+
+.ai-tool-drawer {
+  .ant-drawer-header {
+    padding: 18px 24px 16px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .ant-drawer-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .ant-drawer-body {
+    padding: 20px 24px 24px;
+    background: #fafafc;
+  }
+}
+
+.ai-job-recommendation-drawer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  .ant-alert {
+    border-radius: 12px;
+  }
+
+  &__list {
+    margin-top: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+}
+
+.ai-job-recommendation-card {
+  border-radius: 10px;
+  border: 1px solid #ececf3;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+
+    h4 {
+      margin: 2px 0 0;
+      font-size: 17px;
+      line-height: 1.4;
+      color: #111827;
+    }
+  }
+
+  &__title-group {
+    min-width: 0;
+    flex: 1;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    margin-bottom: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    letter-spacing: 0.02em;
+  }
+
+  &__score {
+    white-space: nowrap;
+    font-size: 12px;
+    color: #4338ca;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #eef2ff;
+  }
+
+  &__section {
+    margin-top: 12px;
+
+    strong {
+      display: inline-block;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #4b5563;
+    }
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    .ant-tag {
+      border-radius: 999px;
+      margin-right: 0;
+      padding-inline: 10px;
+    }
+  }
+}

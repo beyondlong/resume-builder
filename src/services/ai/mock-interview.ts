@@ -1,8 +1,7 @@
-import { buildResumeImprovePrompt } from './prompts';
 import type {
   AIErrorResponse,
-  AIImproveRequest,
-  AIImproveResponse,
+  AIMockInterviewResponse,
+  ResumeAIContext,
 } from './types';
 
 const getAIProxyBaseUrl = (): string => {
@@ -23,25 +22,24 @@ const getAIProxyBaseUrl = (): string => {
   return '';
 };
 
-const buildAIProxyUrl = (): string => {
-  const baseUrl = getAIProxyBaseUrl();
-  return `${baseUrl}/api/ai/improve`;
-};
-
-export const improveResumeField = async (
-  request: AIImproveRequest
-): Promise<AIImproveResponse> => {
+export const requestMockInterview = async ({
+  resume,
+  language,
+}: {
+  resume: ResumeAIContext;
+  language: ResumeAIContext['language'];
+}): Promise<AIMockInterviewResponse> => {
   let response: Response;
 
   try {
-    response = await fetch(buildAIProxyUrl(), {
+    response = await fetch(`${getAIProxyBaseUrl()}/api/ai/mock-interview`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        ...request,
-        prompt: buildResumeImprovePrompt(request),
+        resume,
+        language,
       }),
     });
   } catch (_error) {
@@ -64,5 +62,5 @@ export const improveResumeField = async (
     throw error;
   }
 
-  return (await response.json()) as AIImproveResponse;
+  return (await response.json()) as AIMockInterviewResponse;
 };

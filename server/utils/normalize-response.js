@@ -11,7 +11,7 @@ const stripJsonFence = content => {
     .trim();
 };
 
-const parseCandidatePayload = content => {
+const parseStructuredPayload = content => {
   const normalizedContent = stripJsonFence(content);
 
   if (!normalizedContent) {
@@ -20,15 +20,17 @@ const parseCandidatePayload = content => {
     throw error;
   }
 
-  let parsed;
-
   try {
-    parsed = JSON.parse(normalizedContent);
+    return JSON.parse(normalizedContent);
   } catch (_error) {
     const error = new Error('AI response is not valid JSON');
     error.code = 'AI_INVALID_RESPONSE';
     throw error;
   }
+};
+
+const parseCandidatePayload = content => {
+  const parsed = parseStructuredPayload(content);
 
   if (!Array.isArray(parsed?.candidates)) {
     const error = new Error('AI response does not contain candidates');
@@ -51,5 +53,6 @@ const buildClientResponse = rawCandidates => ({
 
 module.exports = {
   buildClientResponse,
+  parseStructuredPayload,
   parseCandidatePayload,
 };

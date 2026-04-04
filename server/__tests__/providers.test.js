@@ -112,6 +112,33 @@ describe('AI provider utilities', () => {
     expect(content).toBe('{"candidates":["DashScope版本"]}');
   });
 
+  it('surfaces DashScope upstream error detail when request fails', async () => {
+    const fetchImpl = jest.fn().mockResolvedValue({
+      ok: false,
+      status: 400,
+      json: async () => ({
+        code: 'InvalidParameter',
+        message: 'response_format is invalid',
+      }),
+    });
+
+    await expect(
+      requestDashScopeCompletion(
+        {
+          provider: 'dashscope',
+          apiKey: 'dash-key',
+          baseUrl: 'https://dashscope.aliyuncs.com/api/v1',
+          model: 'qwen-plus',
+        },
+        'prompt text',
+        fetchImpl
+      )
+    ).rejects.toMatchObject({
+      code: 'AI_UPSTREAM_REQUEST_FAILED',
+      message: 'DashScope request failed: response_format is invalid',
+    });
+  });
+
   it('builds OpenAI-compatible request and returns content', async () => {
     const fetchImpl = jest.fn().mockResolvedValue({
       ok: true,
@@ -147,6 +174,34 @@ describe('AI provider utilities', () => {
       })
     );
     expect(content).toBe('{"candidates":["兼容接口版本"]}');
+  });
+
+  it('surfaces OpenAI-compatible upstream error detail when request fails', async () => {
+    const fetchImpl = jest.fn().mockResolvedValue({
+      ok: false,
+      status: 429,
+      json: async () => ({
+        error: {
+          message: 'Rate limit exceeded',
+        },
+      }),
+    });
+
+    await expect(
+      requestOpenAICompatibleCompletion(
+        {
+          provider: 'openai-compatible',
+          apiKey: 'oa-key',
+          baseUrl: 'https://example.com/v1',
+          model: 'gpt-like-model',
+        },
+        'prompt text',
+        fetchImpl
+      )
+    ).rejects.toMatchObject({
+      code: 'AI_UPSTREAM_REQUEST_FAILED',
+      message: 'OpenAI-compatible request failed: Rate limit exceeded',
+    });
   });
 
   it('routes requests through provider router', async () => {

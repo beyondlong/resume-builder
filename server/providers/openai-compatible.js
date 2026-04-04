@@ -1,5 +1,36 @@
 const stripTrailingSlash = value => value.replace(/\/+$/, '');
 
+const buildUpstreamError = async response => {
+  let detail = `OpenAI-compatible request failed with status ${response.status}`;
+
+  try {
+    const payload = await response.json();
+    const message =
+      payload?.error?.message ||
+      payload?.message ||
+      payload?.error?.code ||
+      payload?.code;
+
+    if (message) {
+      detail = `OpenAI-compatible request failed: ${message}`;
+    }
+  } catch (_error) {
+    try {
+      const text = await response.text();
+
+      if (text && text.trim()) {
+        detail = `OpenAI-compatible request failed: ${text.trim()}`;
+      }
+    } catch (_textError) {
+      // ignore secondary parse failures and keep the fallback detail
+    }
+  }
+
+  const error = new Error(detail);
+  error.code = 'AI_UPSTREAM_REQUEST_FAILED';
+  return error;
+};
+
 const requestOpenAICompatibleCompletion = async (
   config,
   prompt,
@@ -26,9 +57,7 @@ const requestOpenAICompatibleCompletion = async (
   });
 
   if (!response.ok) {
-    const error = new Error('OpenAI-compatible request failed');
-    error.code = 'AI_UPSTREAM_REQUEST_FAILED';
-    throw error;
+    throw await buildUpstreamError(response);
   }
 
   const data = await response.json();

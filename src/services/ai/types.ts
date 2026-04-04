@@ -15,7 +15,7 @@ export type AIImproveCandidate = {
 export type AIImproveRequest = {
   target: AIImproveTarget;
   sourceText: string;
-  language?: 'zh-CN' | 'en-US';
+  language?: ResumeAILanguage;
 };
 
 export type AIImproveResponse = {
@@ -35,4 +35,63 @@ export type AIErrorResponse = {
     code: AIErrorCode | string;
     message: string;
   };
+};
+
+export type ResumeAILanguage = 'zh-CN' | 'en-US';
+
+export type ResumeAIContext = {
+  language: ResumeAILanguage;
+  profile: {
+    name?: string;
+    city?: string;
+    yearsOfExperienceHint?: string;
+    currentTitle?: string;
+  };
+  summary: string;
+  education: Array<{
+    school?: string;
+    major?: string;
+    degree?: string;
+    time?: string;
+  }>;
+  workExperience: Array<{
+    company?: string;
+    role?: string;
+    time?: string;
+    description?: string;
+  }>;
+  projects: Array<{
+    name?: string;
+    description?: string;
+    responsibilities?: string;
+    techHints?: string[];
+  }>;
+  skills: string[];
+};
+
+export type AIRecommendedRole = {
+  title: string;
+  score: number;
+  industries: string[];
+  companyTypes: string[];
+  techTags: string[];
+  reasons: string[];
+  suggestions: string[];
+};
+
+export type AIJobRecommendationResponse = {
+  summary: string;
+  roles: AIRecommendedRole[];
+};
+
+export type AIMockInterviewQuestion = {
+  question: string;
+  intent: string;
+  answerGuidance: string[];
+  resumeEvidence?: string;
+};
+
+export type AIMockInterviewResponse = {
+  summary: string;
+  questions: AIMockInterviewQuestion[];
 };
