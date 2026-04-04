@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-  MobileFilled,
-  MailFilled,
-  GithubFilled,
-  ZhihuCircleFilled,
-  ScheduleFilled,
   EnvironmentFilled,
-  HeartFilled,
+  GithubFilled,
+  MailFilled,
+  MobileFilled,
+  ScheduleFilled,
+  ZhihuCircleFilled,
 } from '@ant-design/icons';
 import _ from 'lodash-es';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -20,6 +19,7 @@ import {
   ModernProjectItems,
   ModernSkillAwardItems,
   ModernWorkExperienceItems,
+  PortfolioItems,
 } from '../shared-sections';
 import { ModernSection } from '../shared-layouts';
 import './index.less';
@@ -29,13 +29,8 @@ type Props = {
   theme: ThemeConfig;
 };
 
-/**
- * @description 模板4 - 现代简洁风格
- * 单栏布局，顶部姓名+联系方式横排，内容垂直排列
- */
-export const Template4: React.FC<Props> = props => {
+export const Template4: React.FC<Props> = ({ value, theme }) => {
   const intl = useIntl();
-  const { value, theme } = props;
   const themedIconStyle = { color: theme.color };
   const {
     profile,
@@ -45,42 +40,61 @@ export const Template4: React.FC<Props> = props => {
     projectList,
     skillList,
     awardList,
+    workList,
     aboutmeList,
     presentLabel,
   } = getResumeViewModel(value, intl);
 
   return (
     <div className="template4-resume resume-content">
-      {/* 头部区域 */}
       <div className="resume-header" style={{ borderBottomColor: theme.color }}>
-        {!value?.avatar?.hidden && (
-          <Avatar
-            avatarSrc={value?.avatar?.src}
-            className="avatar"
-            shape={value?.avatar?.shape}
-            size={value?.avatar?.size}
-          />
-        )}
-        {/* 姓名 */}
-        <h1 className="name" style={{ color: theme.color }}>
-          {profile?.name}
-        </h1>
+        <div className="resume-header-main">
+          {!value?.avatar?.hidden && (
+            <Avatar
+              avatarSrc={value?.avatar?.src}
+              className="avatar"
+              shape={value?.avatar?.shape}
+              size={value?.avatar?.size}
+            />
+          )}
+          <div className="identity-block">
+            <h1 className="name" style={{ color: theme.color }}>
+              {profile?.name}
+            </h1>
+            {profile?.positionTitle ? (
+              <div className="position-title">{profile.positionTitle}</div>
+            ) : null}
+            <div className="profile-meta">
+              {profile?.workExpYear ? (
+                <span className="meta-pill">
+                  <ScheduleFilled style={themedIconStyle} />
+                  {profile.workExpYear}
+                </span>
+              ) : null}
+              {profile?.workPlace ? (
+                <span className="meta-pill">
+                  <EnvironmentFilled style={themedIconStyle} />
+                  {profile.workPlace}
+                </span>
+              ) : null}
+            </div>
+          </div>
+        </div>
 
-        {/* 联系方式横排 */}
         <div className="contact-row">
-          {profile?.mobile && (
+          {profile?.mobile ? (
             <span className="contact-item">
               <MobileFilled style={themedIconStyle} />
               {profile.mobile}
             </span>
-          )}
-          {profile?.email && (
+          ) : null}
+          {profile?.email ? (
             <span className="contact-item">
               <MailFilled style={themedIconStyle} />
               {profile.email}
             </span>
-          )}
-          {profile?.github && (
+          ) : null}
+          {profile?.github ? (
             <span
               className="contact-item link"
               onClick={() => openExternalLink(profile.github)}
@@ -88,8 +102,8 @@ export const Template4: React.FC<Props> = props => {
               <GithubFilled style={themedIconStyle} />
               GitHub
             </span>
-          )}
-          {profile?.zhihu && (
+          ) : null}
+          {profile?.zhihu ? (
             <span
               className="contact-item link"
               onClick={() => openExternalLink(profile.zhihu)}
@@ -97,31 +111,23 @@ export const Template4: React.FC<Props> = props => {
               <ZhihuCircleFilled style={themedIconStyle} />
               知乎
             </span>
-          )}
-          {profile?.workExpYear && (
-            <span className="contact-item">
-              <ScheduleFilled style={themedIconStyle} />
-              {profile.workExpYear}
-            </span>
-          )}
-          {profile?.workPlace && (
-            <span className="contact-item">
-              <EnvironmentFilled style={themedIconStyle} />
-              {profile.workPlace}
-            </span>
-          )}
-          {profile?.positionTitle && (
-            <span className="contact-item">
-              <HeartFilled style={themedIconStyle} />
-              {profile.positionTitle}
-            </span>
-          )}
+          ) : null}
         </div>
       </div>
 
-      {/* 主体内容 */}
-      <div className="resume-body">
-        {/* 工作经历 */}
+      <div className="resume-flow">
+        {aboutmeList &&
+        aboutmeList.length > 0 &&
+        _.trim(aboutmeList.join('')) ? (
+          <ModernSection
+            title={<FormattedMessage id="自我介绍" />}
+            color={theme.color}
+            contentClassName="about-content"
+          >
+            <AboutMeItems aboutmeList={aboutmeList} paragraphTag="p" />
+          </ModernSection>
+        ) : null}
+
         {workExpList?.length ? (
           <ModernSection title={titleNameMap?.workExpList} color={theme.color}>
             <ModernWorkExperienceItems
@@ -131,14 +137,12 @@ export const Template4: React.FC<Props> = props => {
           </ModernSection>
         ) : null}
 
-        {/* 项目经验 */}
         {projectList?.length ? (
           <ModernSection title={titleNameMap?.projectList} color={theme.color}>
             <ModernProjectItems projectList={projectList} theme={theme} />
           </ModernSection>
         ) : null}
 
-        {/* 教育背景 */}
         {educationList?.length ? (
           <ModernSection
             title={titleNameMap?.educationList}
@@ -151,27 +155,36 @@ export const Template4: React.FC<Props> = props => {
           </ModernSection>
         ) : null}
 
-        {/* 技能证书 */}
-        {skillList?.length || awardList?.length ? (
-          <ModernSection title={titleNameMap?.skillList} color={theme.color}>
-            <ModernSkillAwardItems
-              skillList={skillList}
-              awardList={awardList}
-            />
-          </ModernSection>
-        ) : null}
+        {skillList?.length || awardList?.length || workList?.length ? (
+          <div className="resume-utility-grid">
+            {skillList?.length || awardList?.length ? (
+              <ModernSection
+                title={titleNameMap?.skillList}
+                color={theme.color}
+                className="utility-section"
+              >
+                <ModernSkillAwardItems
+                  skillList={skillList}
+                  awardList={awardList}
+                />
+              </ModernSection>
+            ) : null}
 
-        {/* 自我介绍 */}
-        {aboutmeList &&
-        aboutmeList.length > 0 &&
-        _.trim(aboutmeList.join('')) ? (
-          <ModernSection
-            title={<FormattedMessage id="自我介绍" />}
-            color={theme.color}
-            contentClassName="about-content"
-          >
-            <AboutMeItems aboutmeList={aboutmeList} paragraphTag="p" />
-          </ModernSection>
+            {workList?.length ? (
+              <ModernSection
+                title={
+                  titleNameMap?.workList ||
+                  intl.formatMessage({ id: '个人作品' })
+                }
+                color={theme.color}
+                className="utility-section"
+              >
+                <div className="portfolio-list">
+                  <PortfolioItems workList={workList} />
+                </div>
+              </ModernSection>
+            ) : null}
+          </div>
         ) : null}
       </div>
     </div>

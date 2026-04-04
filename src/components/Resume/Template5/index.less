@@ -1,17 +1,15 @@
-// 模板5 - 经典商务风格
-// 左侧深色栏 + 右侧浅色主栏
-
 .template5-resume {
   width: 794px;
   min-height: 942px;
   margin-bottom: 60px;
-  display: flex;
   background: #fff;
+  color: #192131;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  box-shadow: 0 20px 40px rgba(20, 31, 49, 0.08);
 
   @media (max-width: 794px) {
     width: 100%;
-    flex-direction: column;
+    min-height: auto;
   }
 }
 
@@ -26,269 +24,364 @@
   }
 }
 
-// 左侧栏
-.template5-resume .sidebar {
-  width: 240px;
-  min-height: 942px;
-  padding: 32px 20px;
-  color: #fff;
-  flex-shrink: 0;
+.template5-resume .resume-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 30px 36px 22px;
+  border-bottom: 1px solid #d7dfeb;
+  background: linear-gradient(180deg, rgba(31, 60, 136, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
 
   @media (max-width: 794px) {
-    width: 100%;
-    min-height: auto;
-  }
-
-  .avatar {
-    display: block;
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 16px;
-    border-radius: 50%;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .name {
-    font-size: 22px;
-    font-weight: 600;
-    text-align: center;
-    margin: 0 0 24px 0;
-    color: #fff;
-    letter-spacing: 2px;
-  }
-
-  .section-label {
-    font-size: 14px;
-    font-weight: 600;
-    margin: 0 0 12px 0;
-    padding-bottom: 6px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 1px;
+    flex-direction: column;
+    padding: 28px 24px 22px;
   }
 }
 
-// 联系方式
-.template5-resume .contact-section {
-  margin-bottom: 24px;
+.template5-resume .topbar-identity {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+  flex: 1;
 }
 
-.template5-resume .contact-list {
+.template5-resume .identity-copy {
+  min-width: 0;
+}
+
+.template5-resume .name {
+  margin: 0;
+  font-size: 29px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #172033;
+}
+
+.template5-resume .position-title {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #274277;
+}
+
+.template5-resume .identity-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 9px;
+    border: 1px solid #dce4f2;
+    border-radius: 999px;
+    color: #4d5d74;
+    font-size: 11px;
+
+    .anticon {
+      font-size: 13px;
+    }
+  }
+}
+
+.template5-resume .topbar-contacts {
+  min-width: 200px;
+  display: grid;
+  gap: 6px;
+
   .contact-item {
     display: flex;
     align-items: center;
+    gap: 8px;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.85);
-    margin-bottom: 8px;
-    line-height: 1.4;
+    color: #4d5d74;
+    line-height: 1.5;
 
     .anticon {
-      margin-right: 8px;
+      color: #1f3c88;
       font-size: 13px;
-      flex-shrink: 0;
-    }
-
-    span {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
 
     &.link {
       cursor: pointer;
 
       &:hover {
-        color: #fff;
+        color: #1f3c88;
       }
     }
   }
 }
 
-// 技能证书
-.template5-resume .skills-section {
-  margin-bottom: 24px;
+.template5-resume .resume-column-layout {
+  display: grid;
+  grid-template-columns: 214px minmax(0, 1fr);
+  gap: 24px;
+  padding: 22px 36px 30px;
+
+  @media (max-width: 794px) {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
 }
 
-.template5-resume .skills-list {
+.template5-resume .resume-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.template5-resume .resume-main {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.template5-resume .contact-section,
+.template5-resume .skills-section,
+.template5-resume .portfolio-section {
+  padding: 13px 13px 11px;
+  border: 1px solid #e3e8f1;
+  border-radius: 14px;
+  background: #fafbfd;
+}
+
+.template5-resume .section-label {
+  margin: 0 0 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #e3e8f1;
+  font-size: 11px;
+  font-weight: 700;
+  color: #536279;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.template5-resume .contact-list {
+  .contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: #4f5d73;
+    line-height: 1.5;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .anticon {
+      margin-right: 8px;
+      color: #1f3c88;
+      font-size: 13px;
+    }
+  }
+}
+
+.template5-resume .skills-section {
   .skill-item {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 
     &:last-child {
       margin-bottom: 0;
     }
 
     .skill-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #fff;
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #213149;
     }
 
     .skill-desc {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.8);
-      margin: 0;
-      line-height: 1.5;
+      font-size: 11px;
+      color: #617086;
+      line-height: 1.45;
     }
   }
 
   .award-item {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.85);
-    margin-bottom: 6px;
+    margin-bottom: 5px;
+    font-size: 11px;
+    color: #55647b;
 
-    .anticon {
-      margin-right: 8px;
+    .award-info {
+      font-weight: 600;
+      color: #243044;
     }
 
-    .time {
-      color: rgba(255, 255, 255, 0.6);
-      margin-left: 4px;
+    .award-time {
+      margin-left: 6px;
       font-size: 11px;
+      color: #7a8798;
     }
   }
 }
 
-// 自我介绍
-.template5-resume .about-section {
-  .about-content {
-    p {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.85);
-      margin: 0 0 8px 0;
-      line-height: 1.6;
-      white-space: pre-wrap;
+.template5-resume .portfolio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-      &:last-child {
-        margin-bottom: 0;
-      }
+  > div {
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #d8e0ed;
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
     }
+  }
+
+  .info-name {
+    color: #213149;
+  }
+
+  .sub-info {
+    display: inline-block;
+    margin-left: 8px;
+    color: #637189;
   }
 }
 
-// 右侧主内容
-.template5-resume .main-content {
-  flex: 1;
-  padding: 32px 28px;
-  background: #fff;
-}
-
-// 区块通用样式
 .template5-resume .section {
-  margin-bottom: 24px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  margin-bottom: 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .template5-resume .section-title {
-  font-size: 17px;
-  font-weight: 600;
-  margin: 0 0 14px 0;
+  margin: 0 0 10px;
   padding-bottom: 8px;
-  border-bottom: 2px solid;
-  letter-spacing: 1px;
+  border-bottom: 1px solid;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .template5-resume .section-body {
-  padding-left: 2px;
+  padding-left: 0;
 }
 
-// 列表项
 .template5-resume .item {
   margin-bottom: 16px;
-  padding-left: 12px;
-  border-left: 3px solid #e8e8e8;
+  padding: 0 0 16px 16px;
+  border-left: 2px solid #d6deeb;
+  break-inside: avoid;
+  page-break-inside: avoid;
 
   &:last-child {
     margin-bottom: 0;
-  }
-
-  &:hover {
-    border-left-color: #ccc;
+    padding-bottom: 0;
   }
 }
 
 .template5-resume .item-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 6px;
+  gap: 6px 10px;
+  margin-bottom: 8px;
 
   .company,
   .project-name {
     font-size: 15px;
-    font-weight: 600;
-    color: #222;
+    font-weight: 700;
+    color: #172033;
   }
 
   .department {
-    font-size: 13px;
-    color: #666;
-    margin-left: 8px;
+    font-size: 12px;
+    color: #59677c;
   }
 
   .time {
-    font-size: 12px;
-    color: #999;
     margin-left: auto;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #dde5f0;
+    background: #f9fbfe;
+    font-size: 11px;
+    color: #6e7c90;
   }
 
   .role-tag {
-    margin-left: 10px;
-    font-size: 11px;
+    margin-left: 0;
     border: none;
+    border-radius: 999px;
+    padding-inline: 10px;
+    font-size: 11px;
   }
 }
 
 .template5-resume .item-desc,
 .template5-resume .item-content {
-  font-size: 13px;
-  color: #555;
-  line-height: 1.7;
+  color: #49576b;
+  font-size: 12px;
+  line-height: 1.62;
   white-space: pre-wrap;
 
   .label {
-    color: #888;
+    display: inline;
+    margin-right: 6px;
+    color: #748093;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
   }
 }
 
-.template5-resume .item-content {
-  margin-top: 4px;
+.template5-resume .item-desc {
+  margin-bottom: 6px;
 }
 
-// 教育背景
 .template5-resume .edu-item {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 10px;
-  padding-left: 12px;
-  border-left: 3px solid #e8e8e8;
+  margin-bottom: 12px;
+  padding-left: 18px;
+  border-left: 2px solid #dce3ef;
 
   &:last-child {
     margin-bottom: 0;
   }
 
   .school {
-    font-weight: 600;
     font-size: 14px;
-    color: #333;
+    font-weight: 700;
+    color: #1c2638;
   }
 
   .major {
-    font-size: 13px;
-    color: #555;
+    font-size: 12px;
+    color: #5b677a;
   }
 
   .time {
-    font-size: 12px;
-    color: #999;
     margin-left: auto;
+    font-size: 11px;
+    color: #6e7c90;
+  }
+}
+
+.template5-resume .about-content {
+  p {
+    margin: 0 0 8px;
+    color: #455164;
+    font-size: 12px;
+    line-height: 1.68;
+    white-space: pre-wrap;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
