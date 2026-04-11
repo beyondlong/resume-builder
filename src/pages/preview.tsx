@@ -270,63 +270,77 @@ const PreviewPageContent: React.FC = () => {
           ← <FormattedMessage id="返回编辑" />
         </Link>
         <div className="preview-actions">
-          <Select
-            value={currentTemplate}
-            onChange={handleTemplateChange}
-            style={{ width: 160 }}
-            size="small"
-          >
-            <Select.Option value="template4">
-              {intl.formatMessage({ id: '现代简洁模板' })}
-            </Select.Option>
-            <Select.Option value="template1">
-              {intl.formatMessage({ id: '经典模板' })}
-            </Select.Option>
-            <Select.Option value="template2">
-              {intl.formatMessage({ id: '简易模板' })}
-            </Select.Option>
-            <Select.Option value="template3">
-              {intl.formatMessage({ id: '多页模板' })}
-            </Select.Option>
-            <Select.Option value="template5">
-              {intl.formatMessage({ id: '商务模板' })}
-            </Select.Option>
-          </Select>
-          <Popover
-            content={themePanelContent}
-            trigger="click"
-            open={themePanelOpen}
-            onOpenChange={setThemePanelOpen}
-            placement="bottomRight"
-          >
+          <div className="preview-action-item preview-action-item--select">
+            <Select
+              value={currentTemplate}
+              onChange={handleTemplateChange}
+              style={{ width: 160 }}
+              size="small"
+              className="preview-template-select"
+            >
+              <Select.Option value="template4">
+                {intl.formatMessage({ id: '现代简洁模板' })}
+              </Select.Option>
+              <Select.Option value="template1">
+                {intl.formatMessage({ id: '经典模板' })}
+              </Select.Option>
+              <Select.Option value="template2">
+                {intl.formatMessage({ id: '简易模板' })}
+              </Select.Option>
+              <Select.Option value="template3">
+                {intl.formatMessage({ id: '多页模板' })}
+              </Select.Option>
+              <Select.Option value="template5">
+                {intl.formatMessage({ id: '商务模板' })}
+              </Select.Option>
+            </Select>
+          </div>
+          <div className="preview-action-item">
+            <Popover
+              content={themePanelContent}
+              trigger="click"
+              visible={themePanelOpen}
+              onVisibleChange={setThemePanelOpen}
+              placement="bottomRight"
+            >
+              <Button
+                type="primary"
+                shape="round"
+                size="small"
+                icon={<BgColorsOutlined />}
+                className="preview-action-button"
+              >
+                <FormattedMessage id="主题设置" />
+              </Button>
+            </Popover>
+          </div>
+          <div className="preview-action-item">
             <Button
               type="primary"
               shape="round"
               size="small"
-              icon={<BgColorsOutlined />}
+              icon={<DownloadOutlined />}
+              onClick={handleExport}
+              className="preview-action-button"
             >
-              <FormattedMessage id="主题设置" />
+              <FormattedMessage id="导出配置" />
             </Button>
-          </Popover>
-          <Button
-            type="primary"
-            shape="round"
-            size="small"
-            icon={<DownloadOutlined />}
-            onClick={handleExport}
-          >
-            <FormattedMessage id="导出配置" />
-          </Button>
-          <Button
-            type="primary"
-            shape="round"
-            size="small"
-            icon={<PrinterOutlined />}
-            onClick={handlePrint}
-          >
-            <FormattedMessage id="下载 PDF" />
-          </Button>
-          {config ? <AIMockInterview config={config} /> : null}
+          </div>
+          <div className="preview-action-item">
+            <Button
+              type="primary"
+              shape="round"
+              size="small"
+              icon={<PrinterOutlined />}
+              onClick={handlePrint}
+              className="preview-action-button"
+            >
+              <FormattedMessage id="下载 PDF" />
+            </Button>
+          </div>
+          <div className="preview-action-item">
+            {config ? <AIMockInterview config={config} /> : null}
+          </div>
         </div>
       </div>
 

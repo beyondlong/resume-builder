@@ -13,7 +13,15 @@
   background: @bg-page;
 
   .editor-content {
+    row-gap: 24px;
+
+    .editor-sidebar,
+    .editor-main {
+      display: flex;
+    }
+
     .module-list-card {
+      width: 100%;
       background: @bg-card;
       border: 1px solid @border-color;
       border-radius: 12px;
@@ -73,6 +81,7 @@
     }
 
     .module-form-card {
+      width: 100%;
       background: @bg-card;
       border: 1px solid @border-color;
       border-radius: 12px;
@@ -104,6 +113,53 @@
         border-radius: 6px;
         border: 1px solid #d1fae5;
       }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .resume-editor {
+    padding: 16px 12px 96px;
+
+    .editor-content {
+      row-gap: 16px;
+
+      .module-list-card {
+        border-radius: 10px;
+
+        .module-item {
+          padding: 12px 14px;
+          margin: 4px 6px;
+        }
+      }
+
+      .module-form-card {
+        min-height: auto;
+        padding: 16px;
+
+        .editor-tools {
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .save-indicator {
+          position: static;
+          width: fit-content;
+          margin-bottom: 16px;
+        }
+      }
+    }
+  }
+
+  .list-module-editor {
+    .list-panel-header,
+    .edit-form-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .list-panel-actions {
+      gap: 10px;
     }
   }
 }

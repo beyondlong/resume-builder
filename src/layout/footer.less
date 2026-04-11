@@ -41,3 +41,18 @@ footer {
     display: none;
   }
 }
+
+@media (max-width: 768px) {
+  footer {
+    > div {
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 12px;
+    }
+
+    a {
+      position: static !important;
+    }
+  }
+}

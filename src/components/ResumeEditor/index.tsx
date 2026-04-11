@@ -25,7 +25,7 @@ export const ResumeEditor: React.FC = () => {
   return (
     <div className="resume-editor">
       <Row gutter={24} className="editor-content">
-        <Col span={6}>
+        <Col xs={24} lg={6} className="editor-sidebar">
           <Card className="module-list-card">
             <ModuleList
               selectedKey={selectedModule}
@@ -34,7 +34,7 @@ export const ResumeEditor: React.FC = () => {
             />
           </Card>
         </Col>
-        <Col span={18}>
+        <Col xs={24} lg={18} className="editor-main">
           <Card className="module-form-card">
             <div className="editor-tools">
               <AIJobRecommendation config={config} />
