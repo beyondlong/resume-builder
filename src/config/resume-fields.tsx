@@ -1,9 +1,13 @@
-import type { ResumeModuleField, ResumeModuleKey } from './types';
+import type {
+  ResumeIntlShape,
+  ResumeModuleField,
+  ResumeModuleKey,
+} from './types';
 
 export const getResumeModuleFields = ({
   intl,
 }: {
-  intl: any;
+  intl: ResumeIntlShape;
 }): Partial<Record<ResumeModuleKey, ResumeModuleField[]>> => {
   return {
     avatar: [

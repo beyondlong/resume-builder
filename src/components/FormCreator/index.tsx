@@ -1,13 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Form, Input, InputNumber, Button, Checkbox, Select } from 'antd';
-import { FormItemProps } from 'antd/lib/form';
 import _ from 'lodash-es';
 import { normalizeResumeDateFields } from '@/helpers/resume-dates';
 import { ColorPicker } from './ColorPicker';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { improveResumeField } from '@/services/ai/client';
-import type { ResumeModuleField, ResumeModuleKey } from '@/config/types';
-import type { AIImproveCandidate } from '@/services/ai/types';
+import { ResumeModuleField, ResumeModuleKey } from '@/config/types';
+import { AIImproveCandidate } from '@/services/ai/types';
 import { AIImproveButton } from './AIImproveButton';
 import { AICandidateModal } from './AICandidateModal';
 import { buildAIRequestFromField, isAIField } from './ai-fields';
@@ -21,30 +20,28 @@ const AI_ERROR_MESSAGE_IDS: Record<string, string> = {
   AI_REQUEST_FAILED: 'AI请求失败',
 };
 
-type Props = {
+export interface FormCreatorValue extends Record<string, unknown> {}
+
+export interface FormCreatorProps {
   /** 表单配置 */
-  config: Array<{
-    type: string /** 组件类型 */;
-    attributeId: string;
-    displayName: string;
-    formItemProps?: FormItemProps;
-    cfg?: {
-      [k: string]: any /**其它和组件本身有关的配置 */;
-    };
-  }>;
+  config: ResumeModuleField[];
   /** 表单已配置内容 */
-  value: {
-    [key: string]: any;
-  };
-  onChange: (v: any) => void;
+  value: FormCreatorValue;
+  onChange: (v: FormCreatorValue) => void;
   /** 列表型内容 */
   isList: boolean;
   moduleKey: ResumeModuleKey;
   itemIndex?: number;
+}
+
+type FormItemComponentProps = Record<string, unknown>;
+type FormFieldState = {
+  name: string[];
+  value: unknown;
 };
 
 const FormItemComponentMap = (type: string) => (
-  props: Record<string, any> = {}
+  props: FormItemComponentProps = {}
 ) => {
   switch (type) {
     case 'checkbox':
@@ -58,7 +55,7 @@ const FormItemComponentMap = (type: string) => (
     case 'textArea':
       return <Input.TextArea {...props} />;
     case 'color-picker':
-      return <ColorPicker {...(props as any)} />;
+      return <ColorPicker {...props} />;
     default:
       return <Input />;
   }
@@ -66,9 +63,9 @@ const FormItemComponentMap = (type: string) => (
 
 const getFieldComponentProps = (
   type: string,
-  cfg: Record<string, any>,
+  cfg: FormItemComponentProps,
   value: unknown
-) => {
+): FormItemComponentProps => {
   if (type === 'checkbox') {
     return cfg;
   }
@@ -79,10 +76,16 @@ const getFieldComponentProps = (
   };
 };
 
-export const FormCreator: React.FC<Props> = props => {
+const buildFormFields = (value: FormCreatorValue): FormFieldState[] =>
+  Object.entries(value).map(([key, fieldValue]) => ({
+    name: [key],
+    value: fieldValue,
+  }));
+
+export const FormCreator: React.FC<FormCreatorProps> = props => {
   const intl = useIntl();
   const [form] = Form.useForm();
-  const [fields, setFields] = useState([]);
+  const [fields, setFields] = useState<FormFieldState[]>([]);
   const [candidateModalOpen, setCandidateModalOpen] = useState(false);
   const [candidates, setCandidates] = useState<AIImproveCandidate[]>([]);
   const [activeFieldId, setActiveFieldId] = useState<string | null>(null);
@@ -90,19 +93,20 @@ export const FormCreator: React.FC<Props> = props => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    const datas = Object.keys(props.value || {}).map(d => ({
-      name: [d],
-      value: props.value[d],
-    }));
-    setFields(datas);
-    form.setFieldsValue(props.value || {});
+    const nextValue = props.value || {};
+
+    setFields(buildFormFields(nextValue));
+    form.setFieldsValue(nextValue);
   }, [form, props.value]);
 
-  const handleListSubmit = (values: any) => {
+  const handleListSubmit = (values: FormCreatorValue) => {
     props.onChange(normalizeResumeDateFields(values));
   };
 
-  const handleValuesChange = (_changedValues: any, allValues: any) => {
+  const handleValuesChange = (
+    _changedValues: FormCreatorValue,
+    allValues: FormCreatorValue
+  ) => {
     props.onChange(normalizeResumeDateFields(allValues));
   };
 
@@ -114,19 +118,14 @@ export const FormCreator: React.FC<Props> = props => {
 
   const applyCandidateToField = (fieldKey: string, content: string) => {
     const nextValues = {
-      ...(props.value || {}),
+      ...props.value,
       [fieldKey]: content,
     };
 
     form.setFieldsValue({
       [fieldKey]: content,
     });
-    setFields(
-      Object.keys(nextValues).map(key => ({
-        name: [key],
-        value: nextValues[key],
-      }))
-    );
+    setFields(buildFormFields(nextValues));
 
     if (!props.isList) {
       props.onChange(normalizeResumeDateFields(nextValues));
@@ -207,8 +206,8 @@ export const FormCreator: React.FC<Props> = props => {
         fields={fields}
         {...formProps}
       >
-        {_.map(props.config, c => {
-          const aiEnabled = isAIField(c as ResumeModuleField);
+        {props.config.map(c => {
+          const aiEnabled = isAIField(c);
           return (
             <React.Fragment key={c.attributeId}>
               <Form.Item
@@ -220,9 +219,7 @@ export const FormCreator: React.FC<Props> = props => {
                     {aiEnabled ? (
                       <AIImproveButton
                         loading={loadingFieldId === c.attributeId}
-                        onClick={() =>
-                          handleImproveClick(c as ResumeModuleField)
-                        }
+                        onClick={() => handleImproveClick(c)}
                       />
                     ) : null}
                   </div>
@@ -235,7 +232,7 @@ export const FormCreator: React.FC<Props> = props => {
                   ...getFieldComponentProps(
                     c.type,
                     c.cfg || {},
-                    _.get(props.value, [c.attributeId])
+                    props.value[c.attributeId]
                   ),
                 })}
               </Form.Item>

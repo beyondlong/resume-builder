@@ -12,13 +12,13 @@ import {
 } from '@ant-design/icons';
 import _ from 'lodash-es';
 import type { ResumeConfig } from '@/components/types';
-import type { ResumeModuleDefinition } from './types';
+import type { ResumeIntlShape, ResumeModuleDefinition } from './types';
 
 export const getResumeModules = ({
   intl,
   titleNameMap,
 }: {
-  intl: any;
+  intl: ResumeIntlShape;
   titleNameMap?: ResumeConfig['titleNameMap'];
 }): ResumeModuleDefinition[] => {
   const modules: ResumeModuleDefinition[] = [

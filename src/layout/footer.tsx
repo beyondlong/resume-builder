@@ -32,6 +32,7 @@ const Footer: React.FC = () => {
           href={'https://github.com/beyondlong/resume-builder.git'}
           style={{ position: 'absolute', right: '8px', fontSize: '12px' }}
           target="_blank"
+          rel="noreferrer"
         >
           <GithubFilled style={{ color: '#fff', marginRight: '4px' }} />{' '}
           {intl.formatMessage({ id: '项目代码' })}

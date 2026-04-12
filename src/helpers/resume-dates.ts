@@ -8,7 +8,7 @@ type ResumeDateRangeValue =
 const DATE_RANGE_FIELDS = new Set(['edu_time', 'work_time']);
 
 export const normalizeDateRange = (
-  value: ResumeDateRangeValue
+  value: unknown
 ): [ResumeDateValue, ResumeDateValue] => {
   if (Array.isArray(value)) {
     return [value[0], value[1]];
@@ -22,7 +22,7 @@ export const normalizeDateRange = (
   return [undefined, undefined];
 };
 
-export const normalizeResumeDateFields = <T extends Record<string, any>>(
+export const normalizeResumeDateFields = <T extends Record<string, unknown>>(
   values: T
 ): T => {
   const normalizedEntries = Object.entries(values).map(([key, value]) => {

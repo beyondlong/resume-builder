@@ -1,4 +1,5 @@
-**/dist/**
-**/node_modules/**
-**/server.js
-**/webpack.config*.js
+node_modules
+public
+.cache
+lib
+src/hooks/useModeSwitcher/index.tsx

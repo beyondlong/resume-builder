@@ -1,22 +1,35 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
-    commonjs: true,
+    node: true,
     es6: true,
+    jest: true,
   },
-  extends: 'eslint:recommended',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
     ecmaFeatures: {
-      experimentalObjectRestSpread: true,
       jsx: true,
     },
-    sourceType: 'module',
   },
-  plugins: ['react'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  plugins: ['react', 'react-hooks'],
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  ignorePatterns: ['node_modules/', 'public/', '.cache/', 'lib/'],
   rules: {
-    'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
-    semi: ['error', 'always'],
-    'no-unused-vars': 'off', // 关闭规则
+    'no-console': 'off',
+    'no-undef': 'off',
+    'no-unused-vars': 'off',
+    'react/display-name': 'off',
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
 };

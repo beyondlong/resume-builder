@@ -4,27 +4,38 @@ import { Template2 } from './Template2';
 import { Template3 } from './Template3';
 import { Template4 } from './Template4';
 import { Template5 } from './Template5';
+import type { ResumeConfig, ResumeTemplate, ThemeConfig } from '../types';
 
-export const Resume: React.FC<any> = ({ template, value, theme, ...restProps }) => {
+type ResumeTemplateComponentProps = {
+  value: ResumeConfig;
+  theme: ThemeConfig;
+};
+
+type ResumeProps = {
+  template?: ResumeTemplate;
+  value?: ResumeConfig | null;
+  theme?: ThemeConfig | null;
+};
+
+const TEMPLATE_COMPONENTS: Record<
+  ResumeTemplate,
+  React.ComponentType<ResumeTemplateComponentProps>
+> = {
+  template1: Template1,
+  template2: Template2,
+  template3: Template3,
+  template4: Template4,
+  template5: Template5,
+};
+
+export const Resume: React.FC<ResumeProps> = ({ template, value, theme }) => {
+  const selectedTemplate = template || 'template1';
+  const Template = TEMPLATE_COMPONENTS[selectedTemplate] || Template1;
+
   // Guard against invalid or missing value/theme
   if (!value || !theme || typeof value !== 'object') {
     return null;
   }
 
-  const Template = React.useMemo(() => {
-    switch (template) {
-      case 'template2':
-        return Template2;
-      case 'template3':
-        return Template3;
-      case 'template4':
-        return Template4;
-      case 'template5':
-        return Template5;
-      default:
-        return Template1;
-    }
-  }, [template]);
-
-  return Template ? <Template value={value} theme={theme} {...restProps} /> : null;
+  return <Template value={value} theme={theme} />;
 };

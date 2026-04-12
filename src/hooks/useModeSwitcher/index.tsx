@@ -11,15 +11,19 @@ export function getMode() {
   return (query ? query.mode : 'read') as string;
 }
 
+type UseModeSwitcherOptions = {
+  className?: string;
+};
+
+type UseModeSwitcherResult = [JSX.Element, string, (value: string) => void];
+
 export const useModeSwitcher = ({
   className,
-}: {
-  className?: string;
-}): [JSX.Element, string, (v) => void] => {
+}: UseModeSwitcherOptions): UseModeSwitcherResult => {
   const mode = getMode();
   const query = getSearchObj();
 
-  const changeMode = value => {
+  const changeMode = (value: string): void => {
     if (value === mode) return;
     const {
       pathname,

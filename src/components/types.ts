@@ -1,3 +1,10 @@
+export type ResumeTemplate =
+  | 'template1'
+  | 'template2'
+  | 'template3'
+  | 'template4'
+  | 'template5';
+
 /** 简历配置内容 */
 export type ResumeConfig = {
   /** 头像 */
@@ -115,7 +122,7 @@ export type ResumeConfig = {
     [key: string]: ResumeConfig;
   };
 
-  template?: string;
+  template?: ResumeTemplate;
 };
 
 /**

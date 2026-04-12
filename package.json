@@ -63,6 +63,9 @@
     "start": "cross-env NODE_ENV=development node ./scripts/start-dev.js",
     "start:ai-proxy": "node ./server/index.js",
     "build": "gatsby build --prefix-paths",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint --ext .js,.jsx,.tsx src server scripts *.js",
+    "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "clean": "gatsby clean",
     "deploy": "npm run clean && gatsby build --prefix-paths && gh-pages -d public",
@@ -73,7 +76,11 @@
     "extract": "formatjs extract 'src/**/*.ts*' --ignore '**/locales/**' --format i18n.formatter.js --out-file i18n.temp.json --flatten"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "*.{js,jsx,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.ts": [
       "prettier --write"
     ]
   },

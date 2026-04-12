@@ -1,6 +1,11 @@
 import type { ResumeConfig } from '@/components/types';
+import type { ResumeIntlShape } from '@/config/types';
 
-export function getDefaultTitleNameMap({ intl }): ResumeConfig['titleNameMap'] {
+export function getDefaultTitleNameMap({
+  intl,
+}: {
+  intl: ResumeIntlShape;
+}): ResumeConfig['titleNameMap'] {
   return {
     /** 默认: 教育背景 */
     educationList: intl.formatMessage({ id: '教育背景' }),
