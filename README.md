@@ -152,7 +152,7 @@ npm run deploy
 - `https://beyondlong.github.io/resume-builder/`
 - `pathPrefix: /resume-builder`
 
-如果你修改仓库名或部署路径，需要同步调整 [gatsby-config.js](/Users/yangxinglong/zayne/resume-builder/gatsby-config.js) 里的 `pathPrefix`。
+如果你修改仓库名或部署路径，需要同步调整 [gatsby-config.js](./gatsby-config.js) 里的 `pathPrefix`。
 
 ## AI 简历优化
 
@@ -343,9 +343,9 @@ server/
 
 编辑器不是手写一套固定表单，而是由配置驱动：
 
-- [src/config/resume-modules.tsx](/Users/yangxinglong/zayne/resume-builder/src/config/resume-modules.tsx) 决定左侧有哪些模块
-- [src/config/resume-fields.tsx](/Users/yangxinglong/zayne/resume-builder/src/config/resume-fields.tsx) 决定右侧表单有哪些字段
-- [src/components/types.ts](/Users/yangxinglong/zayne/resume-builder/src/components/types.ts) 定义真实数据结构
+- [src/config/resume-modules.tsx](./src/config/resume-modules.tsx) 决定左侧有哪些模块
+- [src/config/resume-fields.tsx](./src/config/resume-fields.tsx) 决定右侧表单有哪些字段
+- [src/components/types.ts](./src/components/types.ts) 定义真实数据结构
 
 如果要新增一个模块，通常要改这几层：
 
@@ -373,8 +373,8 @@ server/
 
 默认数据位于：
 
-- [src/data/resume.ts](/Users/yangxinglong/zayne/resume-builder/src/data/resume.ts)
-- [static/resume.json](/Users/yangxinglong/zayne/resume-builder/static/resume.json)
+- [src/data/resume.ts](./src/data/resume.ts)
+- [static/resume.json](./static/resume.json)
 
 ## 项目近期开过的整理
 
