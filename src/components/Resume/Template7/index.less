@@ -1,0 +1,375 @@
+.template7-resume {
+  width: 794px;
+  min-height: 942px;
+  margin-bottom: 60px;
+  background: #101417;
+  color: #e8edf2;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  box-shadow: 0 24px 54px rgba(16, 20, 23, 0.2);
+
+  @media (max-width: 794px) {
+    width: 100%;
+    min-height: auto;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+  }
+
+  .template7-resume {
+    width: 100%;
+    min-height: auto;
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+
+  .template7-resume .dev-layout {
+    grid-template-columns: 218px minmax(0, 1fr);
+  }
+
+  .template7-resume .section,
+  .template7-resume .item,
+  .template7-resume .dev-panel {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+}
+
+.template7-resume .dev-header {
+  padding: 22px 30px 18px;
+  border-bottom: 1px solid rgba(232, 237, 242, 0.12);
+  background: #151a1e;
+}
+
+.template7-resume .window-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 12px;
+  color: #85909b;
+  font-size: 10px;
+
+  span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f05b57;
+
+    &:nth-child(2) {
+      background: #f7be4b;
+    }
+
+    &:nth-child(3) {
+      background: #39c16c;
+    }
+  }
+
+  b {
+    margin-left: 6px;
+    font-weight: 500;
+  }
+}
+
+.template7-resume .dev-identity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid rgba(232, 237, 242, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(130, 170, 255, 0.08), transparent 42%),
+    #101417;
+
+  @media (max-width: 794px) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.template7-resume .avatar {
+  width: 64px;
+  min-width: 64px;
+  height: 64px;
+
+  .ant-avatar {
+    width: 64px !important;
+    height: 64px !important;
+    line-height: 64px !important;
+    font-size: 28px !important;
+  }
+}
+
+.template7-resume .identity-copy {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.template7-resume .identity-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 2px 8px;
+  border: 1px solid rgba(130, 170, 255, 0.22);
+  border-radius: 4px;
+  background: rgba(130, 170, 255, 0.08);
+  color: #87929e;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.template7-resume .code-line {
+  color: #87929e;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.template7-resume .keyword {
+  color: #82aaff;
+}
+
+.template7-resume .variable {
+  color: #c3e88d;
+}
+
+.template7-resume .name {
+  margin: 0;
+  color: #f8fbff;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.template7-resume .position-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #b8c1ca;
+  font-size: 13px;
+  line-height: 1.4;
+
+  &::before {
+    display: inline-block;
+    width: 3px;
+    height: 12px;
+    border-radius: 999px;
+    background: currentcolor;
+    content: '';
+    opacity: 0.5;
+  }
+}
+
+.template7-resume .dev-layout {
+  display: grid;
+  grid-template-columns: 218px minmax(0, 1fr);
+  gap: 18px;
+  padding: 20px 30px 28px;
+
+  @media (max-width: 794px) {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+}
+
+.template7-resume .dev-sidebar > * + *,
+.template7-resume .dev-main > * + * {
+  margin-top: 14px;
+}
+
+.template7-resume .dev-panel,
+.template7-resume .dev-section {
+  border: 1px solid rgba(232, 237, 242, 0.12);
+  border-radius: 8px;
+  background: #161c21;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.template7-resume .dev-panel {
+  padding: 12px;
+}
+
+.template7-resume .panel-title,
+.template7-resume .section-title {
+  margin: 0 0 10px;
+  color: #9aa8b6;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.template7-resume .section-title {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(232, 237, 242, 0.1);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background: #11161a;
+}
+
+.template7-resume .section-content {
+  padding: 12px;
+  color: #d7dee6;
+  font-size: 11px;
+  line-height: 1.58;
+}
+
+.template7-resume .contact-list {
+  display: grid;
+  gap: 8px;
+}
+
+.template7-resume .contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: #d7dee6;
+  font-size: 11px;
+  line-height: 1.4;
+  word-break: break-word;
+
+  .anticon {
+    font-size: 12px;
+  }
+}
+
+.template7-resume .skill-item,
+.template7-resume .award-item {
+  margin-bottom: 9px;
+  color: #cbd4dc;
+  font-size: 11px;
+  line-height: 1.46;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.template7-resume .skill-name,
+.template7-resume .award-info {
+  display: block;
+  color: #f2f6fa;
+  font-weight: 800;
+}
+
+.template7-resume .award-time {
+  display: block;
+  margin-top: 2px;
+  color: #83909d;
+}
+
+.template7-resume .portfolio-list {
+  display: grid;
+  gap: 9px;
+  color: #cbd4dc;
+  font-size: 11px;
+  line-height: 1.46;
+
+  > div {
+    padding-bottom: 9px;
+    border-bottom: 1px dashed rgba(232, 237, 242, 0.14);
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+
+  .info-name {
+    color: #f2f6fa;
+  }
+
+  .sub-info {
+    margin-left: 8px;
+    color: #8ab4f8;
+  }
+}
+
+.template7-resume .about-content {
+  p {
+    margin: 0 0 8px;
+    white-space: pre-wrap;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.template7-resume .item {
+  margin-bottom: 12px;
+  padding: 0 0 12px 14px;
+  border-left: 2px solid rgba(138, 180, 248, 0.32);
+  border-bottom: 1px dashed rgba(232, 237, 242, 0.11);
+  break-inside: avoid;
+  page-break-inside: avoid;
+
+  &:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.template7-resume .item-header {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-bottom: 6px;
+
+  .company,
+  .project-name,
+  .school {
+    color: #f6f9fc;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .department,
+  .major {
+    color: #9aa8b6;
+  }
+
+  .time {
+    margin-left: auto;
+    padding: 1px 6px;
+    border: 1px solid rgba(232, 237, 242, 0.14);
+    border-radius: 4px;
+    color: #a7b4c2;
+    font-size: 10px;
+  }
+
+  .role-tag {
+    margin-left: 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+}
+
+.template7-resume .item-desc,
+.template7-resume .item-content {
+  color: #cbd4dc;
+  white-space: pre-wrap;
+
+  .label {
+    margin-right: 6px;
+    color: #8ab4f8;
+    font-size: 10px;
+    font-weight: 800;
+  }
+}
+
+.template7-resume .edu-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}

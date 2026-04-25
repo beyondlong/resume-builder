@@ -5,7 +5,9 @@ export type PreviewTemplate =
   | 'template2'
   | 'template3'
   | 'template4'
-  | 'template5';
+  | 'template5'
+  | 'template6'
+  | 'template7';
 
 type BuildPrintPopupHtmlParams = {
   lang: string;
@@ -22,7 +24,9 @@ export const isPreviewTemplate = (
   value === 'template2' ||
   value === 'template3' ||
   value === 'template4' ||
-  value === 'template5';
+  value === 'template5' ||
+  value === 'template6' ||
+  value === 'template7';
 
 export const getTemplateFromSearch = (search: string): PreviewTemplate => {
   const params = new URLSearchParams(search);
@@ -30,11 +34,17 @@ export const getTemplateFromSearch = (search: string): PreviewTemplate => {
   return isPreviewTemplate(template) ? template : DEFAULT_PREVIEW_TEMPLATE;
 };
 
+export const normalizePreviewUrl = (href: string): string => {
+  const nextUrl = new URL(href);
+  nextUrl.pathname = nextUrl.pathname.replace(/\/preview\/$/, '/preview');
+  return nextUrl.toString();
+};
+
 export const buildPreviewHistoryUrl = (
   currentHref: string,
   template: PreviewTemplate
 ): string => {
-  const nextUrl = new URL(currentHref);
+  const nextUrl = new URL(normalizePreviewUrl(currentHref));
   nextUrl.searchParams.set('template', template);
   return nextUrl.toString();
 };
@@ -67,12 +77,20 @@ export const buildPrintPopupHtml = ({
         background: #fff;
       }
       .preview-content {
-        padding: 0 !important;
-        display: block !important;
+        padding: 24px !important;
+        display: flex !important;
+        justify-content: center !important;
       }
       .print-resume-shell {
         width: 100%;
-        max-width: none !important;
+        max-width: 794px !important;
+        margin: 0 auto !important;
+      }
+      .print-resume-shell .resume-content {
+        width: 794px !important;
+        max-width: 100% !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
       }
       .preview-header {
         display: none !important;

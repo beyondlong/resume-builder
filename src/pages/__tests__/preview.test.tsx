@@ -95,6 +95,8 @@ jest.mock('@/i18n', () => ({
     简易模板: 'Simple',
     多页模板: 'Multi Page',
     商务模板: 'Business',
+    设计感杂志模板: 'Editorial',
+    技术极客模板: 'Developer',
     暂无配置数据: 'No config',
   })),
   registerLocale: jest.fn(),

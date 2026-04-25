@@ -194,15 +194,6 @@
   .preview-header {
     display: none !important;
   }
-
-  .preview-content {
-    padding: 0;
-
-    .print-resume-shell,
-    .ant-spin-nested-loading {
-      max-width: none;
-    }
-  }
 }
 
 .theme-settings-panel {
@@ -337,18 +328,26 @@
   }
 
   .preview-page .preview-content {
-    display: block;
-    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+    padding: 24px !important;
   }
 
   .preview-page .print-resume-shell {
-    max-width: none !important;
+    max-width: 794px !important;
     width: 100% !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
   }
 
   .preview-page .print-resume-shell .ant-spin-nested-loading {
-    max-width: none !important;
+    max-width: 794px !important;
     width: 100% !important;
+  }
+
+  .preview-page .print-resume-shell .resume-content {
+    width: 794px !important;
+    max-width: 100% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
   }
 }

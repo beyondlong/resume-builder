@@ -3,7 +3,9 @@ export type ResumeTemplate =
   | 'template2'
   | 'template3'
   | 'template4'
-  | 'template5';
+  | 'template5'
+  | 'template6'
+  | 'template7';
 
 /** 简历配置内容 */
 export type ResumeConfig = {

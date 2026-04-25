@@ -2,7 +2,7 @@
 
 简体中文 | [English](./README.en.md)
 
-一个在线简历编辑器，支持 5 套模板、配置驱动编辑、中英文切换、AI 简历优化、JSON 导出和浏览器打印 PDF。
+一个在线简历编辑器，支持 7 套模板、配置驱动编辑、中英文切换、主题配置、AI 简历优化、AI 岗位推荐、AI 模拟面试、JSON 导出和浏览器打印 PDF。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Gatsby](https://img.shields.io/badge/Gatsby-2.x-663399.svg)](https://www.gatsbyjs.com/)
@@ -35,7 +35,7 @@
 
 ## Highlights
 
-- 5 套简历模板
+- 7 套简历模板
 - 配置驱动表单编辑
 - 中英文切换
 - AI 优化自我介绍 / 项目描述 / 工作描述
@@ -43,6 +43,7 @@
 - 浏览器自动保存到 `localStorage`
 - 导出 JSON 配置
 - 浏览器打印 PDF
+- 预览页和 PDF 打印预览保持同一套简历渲染尺寸
 
 这个项目的目标很直接：用一套可扩展的配置驱动编辑器维护 `ResumeConfig`，再用不同模板快速生成可预览、可导出、可打印的简历页面。
 
@@ -58,7 +59,7 @@
 
 ## 核心能力
 
-- 5 套模板，覆盖经典、简洁、现代、商务等不同风格
+- 7 套模板，覆盖经典、简洁、现代、商务、杂志感和技术极客等不同风格
 - 模块化编辑，支持头像、个人信息、教育、工作、项目、技能、奖项、作品、自我介绍等模块
 - 列表模块支持新增、编辑、删除、拖拽排序
 - 主题设置支持自定义主色、预设主题色和恢复默认
@@ -80,9 +81,11 @@
 | --- | --- | --- |
 | ![模板预览1](static/images/preview-pages1.png) | ![模板预览2](static/images/preview-pages2.png) | ![模板预览3](static/images/preview-pages3.png) |
 
-- 支持 5 套模板切换
+- 支持 7 套模板切换
 - 支持导出 JSON 配置
 - 支持浏览器打印 PDF
+- 预览 URL 会自动规范化，避免 `/preview/` 尾斜线导致刷新后内容丢失
+- PDF 打印预览复用预览页同一套简历外壳尺寸，减少预览和导出效果不一致
 
 ## 模板
 
@@ -93,6 +96,8 @@
 | `template3` | 多页模板 | 分区展示，层次更清晰 |
 | `template4` | 现代简洁模板 | 当前默认模板 |
 | `template5` | 商务模板 | 侧栏布局，更偏正式 |
+| `template6` | 设计感杂志模板 | 大标题与强网格排版，适合截图传播和创意岗位 |
+| `template7` | 技术极客模板 | 开发者档案风格，突出项目、技术栈和开源链接 |
 
 本地开发时可以直接通过下面的地址切换模板：
 
@@ -272,6 +277,18 @@ npm run start:ai-proxy
 - react-dnd
 - Node.js AI proxy
 
+## 当前开发功能
+
+近期开发重点集中在模板扩展、预览稳定性和 AI 职业工具：
+
+- 新增 `template6` 设计感杂志模板，强调大标题、网格排版和更适合传播截图的视觉表达
+- 新增 `template7` 技术极客模板，采用开发者档案风格，突出技术栈、联系方式、项目经历和开源链接
+- 预览页模板切换支持 7 套模板，并补齐中英文模板名称
+- 预览页支持主题设置、导出配置、下载 PDF、AI 模拟面试等集中操作
+- 修复预览页 `/preview/` 尾斜线刷新后可能加载不出内容的问题
+- 调整 PDF 打印预览逻辑，让下载 PDF 前的浏览器预览与页面预览保持一致的简历宽度和居中效果
+- AI 职业工具已包含岗位推荐和模拟面试，并与字段级 `AI优化` 共用同一套代理能力
+
 ## 当前架构
 
 当前有效主链已经收敛为：
@@ -306,6 +323,8 @@ src/
 │   │   ├── Template3/
 │   │   ├── Template4/
 │   │   ├── Template5/
+│   │   ├── Template6/
+│   │   ├── Template7/
 │   │   ├── shared.ts
 │   │   ├── shared-sections.tsx
 │   │   └── shared-layouts.tsx
@@ -320,6 +339,8 @@ src/
 ├── data/
 │   ├── constant.ts
 │   └── resume.ts
+├── features/
+│   └── preview/                 # 预览页工具栏、打印、主题设置和 URL 工具
 ├── helpers/
 │   ├── resume-config.ts
 │   ├── resume-dates.ts
@@ -388,6 +409,10 @@ server/
 - 模板层抽出共享 view model / section / layout
 - 增加主题设置能力
 - 增加 AI 优化代理层和 provider 适配结构
+- 增加 AI 岗位推荐和 AI 模拟面试
+- 增加设计感杂志模板和技术极客模板
+- 修复预览页尾斜线刷新问题
+- 对齐预览页和 PDF 打印预览的渲染尺寸
 - 修复 Gatsby 2 兼容依赖、Less 配置和开发启动脚本
 
 ## 已知情况

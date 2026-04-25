@@ -63,6 +63,12 @@ export const PreviewToolbar: React.FC<Props> = ({
             <Select.Option value="template5">
               {intl.formatMessage({ id: '商务模板' })}
             </Select.Option>
+            <Select.Option value="template6">
+              {intl.formatMessage({ id: '设计感杂志模板' })}
+            </Select.Option>
+            <Select.Option value="template7">
+              {intl.formatMessage({ id: '技术极客模板' })}
+            </Select.Option>
           </Select>
         </div>
         <div className="preview-action-item">

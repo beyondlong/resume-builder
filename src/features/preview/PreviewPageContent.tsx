@@ -18,6 +18,7 @@ import {
   buildPreviewHistoryUrl,
   getTemplateFromSearch,
   isPreviewTemplate,
+  normalizePreviewUrl,
 } from './utils';
 import { usePreviewPrint } from './usePreviewPrint';
 import type { ResumeTemplate } from '@/components/types';
@@ -37,6 +38,13 @@ export const PreviewPageContent: React.FC = () => {
   );
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const normalizedUrl = normalizePreviewUrl(window.location.href);
+      if (normalizedUrl !== window.location.href) {
+        window.history.replaceState({}, '', normalizedUrl);
+      }
+    }
+
     setConfig(loadResolvedResumeConfig(lang));
     setLoading(false);
   }, [lang]);
