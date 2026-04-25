@@ -152,7 +152,7 @@ The current Gatsby setup assumes:
 - `https://beyondlong.github.io/resume-builder/`
 - `pathPrefix: /resume-builder`
 
-If you change the repository name or deployment path, update `pathPrefix` in [gatsby-config.js](/Users/yangxinglong/zayne/resume-builder/gatsby-config.js) as well.
+If you change the repository name or deployment path, update `pathPrefix` in [gatsby-config.js](./gatsby-config.js) as well.
 
 ## AI Resume Optimization
 
@@ -343,9 +343,9 @@ server/
 
 The editor is configuration-driven rather than hardcoded:
 
-- [src/config/resume-modules.tsx](/Users/yangxinglong/zayne/resume-builder/src/config/resume-modules.tsx) defines which modules appear in the left panel
-- [src/config/resume-fields.tsx](/Users/yangxinglong/zayne/resume-builder/src/config/resume-fields.tsx) defines which fields appear in the editor form
-- [src/components/types.ts](/Users/yangxinglong/zayne/resume-builder/src/components/types.ts) defines the actual data model
+- [src/config/resume-modules.tsx](./src/config/resume-modules.tsx) defines which modules appear in the left panel
+- [src/config/resume-fields.tsx](./src/config/resume-fields.tsx) defines which fields appear in the editor form
+- [src/components/types.ts](./src/components/types.ts) defines the actual data model
 
 To add a new module, you will usually touch:
 
@@ -373,8 +373,8 @@ The core data model is `ResumeConfig`, mainly including:
 
 Default data lives in:
 
-- [src/data/resume.ts](/Users/yangxinglong/zayne/resume-builder/src/data/resume.ts)
-- [static/resume.json](/Users/yangxinglong/zayne/resume-builder/static/resume.json)
+- [src/data/resume.ts](./src/data/resume.ts)
+- [static/resume.json](./static/resume.json)
 
 ## Recent Cleanup
 
