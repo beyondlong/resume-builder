@@ -111,6 +111,7 @@
 
 - Node.js 20
 - npm 10
+- pnpm 10.33.0（如果使用 pnpm，请使用仓库声明的版本并执行 `pnpm install --frozen-lockfile`）
 
 ### 安装依赖
 

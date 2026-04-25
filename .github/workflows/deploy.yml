@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: '20'
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          version: 8
-      - run: pnpm install --no-frozen-lockfile
+          version: 10.33.0
+      - run: pnpm install --frozen-lockfile
       - run: NODE_OPTIONS=--openssl-legacy-provider pnpm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

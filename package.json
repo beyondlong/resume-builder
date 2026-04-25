@@ -2,6 +2,7 @@
   "name": "resume",
   "version": "1.1.5",
   "private": true,
+  "packageManager": "pnpm@10.33.0",
   "dependencies": {
     "@ant-design/icons": "4.6.2",
     "antd": "4.16.6",
